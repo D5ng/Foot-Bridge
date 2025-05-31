@@ -1,4 +1,4 @@
-import { createGlobalTheme } from "@vanilla-extract/css";
+import { createGlobalTheme } from "@vanilla-extract/css"
 
 export const colorVars = createGlobalTheme(":root", {
   highlight: {
@@ -7,6 +7,7 @@ export const colorVars = createGlobalTheme(":root", {
     200: "#6FBAFF",
     300: "#2897FF",
     400: "#006FFD",
+    500: "#0E5FC7", // hover용
   },
   neutral: {
     light: {
@@ -39,4 +40,4 @@ export const colorVars = createGlobalTheme(":root", {
     300: "#FF616D",
     500: "#ED3241",
   },
-});
+})
