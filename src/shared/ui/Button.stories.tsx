@@ -12,5 +12,20 @@ export const Primary: Story = {
   args: {
     children: "Button",
     variant: "primary",
+    disabled: false,
+  },
+}
+
+export const Secondary: Story = {
+  args: {
+    children: "Button",
+    variant: "secondary",
+  },
+}
+
+export const Terciary: Story = {
+  args: {
+    children: "Button",
+    variant: "terciary",
   },
 }
