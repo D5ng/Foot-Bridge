@@ -30,8 +30,3 @@ jobs:
 
       - name: Build project
         run: yarn build
-
-      # 조건부 실행: main 브랜치에서만 배포 실행
-      - name: Deploy (only on main)
-        if: github.ref == 'refs/heads/main'
-        run: echo "🚀 실제 배포 작업 실행하는 자리 (예: Storybook, S3, Vercel 등)"
