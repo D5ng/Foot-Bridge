@@ -31,21 +31,24 @@ export const dayCell = recipe({
     gap: spacing[1],
   },
   variants: {
-    selected: {
-      true: {
+    variant: {
+      default: {
+        backgroundColor: colorVars.neutral.light[50],
+      },
+
+      selected: {
         backgroundColor: colorVars.highlight[400],
         color: colorVars.neutral.light[50],
       },
-      false: {
-        backgroundColor: colorVars.neutral.light[50],
 
-        selectors: {
-          [`.swiper-wrapper &`]: {
-            color: "red",
-          },
-        },
+      current: {
+        backgroundColor: colorVars.neutral.light[200],
       },
     },
+  },
+
+  defaultVariants: {
+    variant: "default",
   },
 })
 
