@@ -1,4 +1,4 @@
-import { WEEK_DAYS } from "../dayCell/DayCell.constants"
+import { WEEK_DAYS } from "../DayCell/DayCell.constants"
 
 export const getDayName = (date: Date) => {
   const day = date.getDay()

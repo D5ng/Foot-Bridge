@@ -2,7 +2,7 @@ import { useState } from "react"
 import { format } from "date-fns"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { getRemainingDaysOfMonth } from "../utils"
-import DayCell from "../dayCell/DayCell"
+import DayCell from "../DayCell/DayCell"
 
 import { swiperContainer, dayCellSlide, swiperWrapper } from "./MonthlyCalendar.css"
 
