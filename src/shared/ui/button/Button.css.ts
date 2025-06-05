@@ -1,5 +1,5 @@
 import { recipe } from "@vanilla-extract/recipes"
-import { colorVars, radius, typography } from "../tokens"
+import { colorVars, radius, typography } from "@/shared/tokens"
 
 export const button = recipe({
   base: {
