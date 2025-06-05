@@ -1,4 +1,4 @@
-import { recipe, type RecipeVariants } from "@vanilla-extract/recipes"
+import { recipe } from "@vanilla-extract/recipes"
 import { style, styleVariants } from "@vanilla-extract/css"
 import { colorVars, radius, spacing, typography } from "@/shared/tokens"
 
@@ -51,5 +51,3 @@ export const dayCell = recipe({
     variant: "default",
   },
 })
-
-export type DayCellVariants = NonNullable<RecipeVariants<typeof dayCell>>

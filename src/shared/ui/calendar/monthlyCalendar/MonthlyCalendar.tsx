@@ -1,26 +1,24 @@
 import { useState } from "react"
 import { format } from "date-fns"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { getRemainingDaysOfMonth } from "./calendar.utils"
-import DayCell from "./DayCell"
+import { getRemainingDaysOfMonth } from "../utils"
+import DayCell from "../dayCell/DayCell"
 
-import { dayCellSlide, wrapper } from "./MonthlyCalendar.css"
-
-// import "./MonthlyCalendar.css"
+import { swiperContainer, dayCellSlide, swiperWrapper } from "./MonthlyCalendar.css"
 
 export default function MonthlyCalendar() {
   const today = new Date()
   const [selectedDate, setSelectedDate] = useState<Date>(today)
-  const dates = getRemainingDaysOfMonth(today)
+  const remainingDays = getRemainingDaysOfMonth(today)
 
   return (
-    <Swiper slidesPerView="auto" grabCursor wrapperClass={wrapper}>
-      {dates.map((date) => (
+    <Swiper slidesPerView="auto" grabCursor wrapperClass={swiperWrapper} className={swiperContainer}>
+      {remainingDays.map((date) => (
         <SwiperSlide key={format(date, "yyyy-MM-dd")} className={dayCellSlide}>
           <DayCell
             date={date}
             selected={format(date, "yyyy-MM-dd") === format(selectedDate, "yyyy-MM-dd")}
-            onClick={setSelectedDate}
+            onSelected={setSelectedDate}
           />
         </SwiperSlide>
       ))}
