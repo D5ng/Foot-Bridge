@@ -1,6 +1,6 @@
 import { type HTMLAttributes } from "react"
 import clsx from "clsx"
-import { Slot, Slottable } from "../lib"
+import { Slot, Slottable } from "@/shared/lib"
 import { badge, badgeContent, type BadgeVariants } from "./Badge.css"
 
 interface Props<T> extends HTMLAttributes<T>, BadgeVariants {

@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from "react"
 import { type RecipeVariants } from "@vanilla-extract/recipes"
 import clsx from "clsx"
-import { Slot, Slottable } from "../lib"
+import { Slot, Slottable } from "@/shared/lib"
 import { button } from "./Button.css"
 
 export type ButtonVariants = NonNullable<RecipeVariants<typeof button>>
