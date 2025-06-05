@@ -1,6 +1,6 @@
 import { isSameDay } from "date-fns"
 import { dayCell, dayNumberStyle, weekdayStyle } from "./DayCell.css"
-import type { DayCellVariantType } from "./type"
+import type { DayCellVariantType } from "./DayCell.type"
 import { getDayName, getDayNumber } from "../utils"
 
 interface Props {
