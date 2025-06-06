@@ -229,3 +229,9 @@ globalStyle("html, body", {
   color: colorVars.neutral.dark[900],
   lineHeight: 1.5,
 })
+
+globalStyle("img", {
+  display: "block",
+  objectFit: "cover",
+  objectPosition: "center",
+})
