@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/react-vite"
 import "../src/app/styles/global.css"
+import { withRouter } from "storybook-addon-remix-react-router"
 
 const preview: Preview = {
   parameters: {
@@ -17,6 +18,7 @@ const preview: Preview = {
       test: "todo",
     },
   },
+  decorators: [withRouter],
 }
 
 export default preview
