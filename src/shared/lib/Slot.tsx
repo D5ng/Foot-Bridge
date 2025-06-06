@@ -22,6 +22,7 @@ export default function Slot({ children, ...restProps }: SlotProps) {
 
       // Note: Children이 단일 요소가 아닌 여러개의 요소를 사용하면 안됨.
       if (Children.count(newElement) > 1) {
+        // eslint-disable-next-line no-console
         console.warn("Slottable은 단일 요소로 사용해야 합니다.")
         return Children.only(null)
       }

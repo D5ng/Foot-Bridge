@@ -6,6 +6,7 @@ import { getDayName, getDayNumber } from "../utils"
 interface Props {
   date: Date
   selected: boolean
+  // eslint-disable-next-line no-unused-vars
   onSelected: (date: Date) => void
 }
 
