@@ -2,22 +2,31 @@ import { recipe } from "@vanilla-extract/recipes"
 import { style } from "@vanilla-extract/css"
 import { colorVars, radius, spacing, typography } from "@/shared/tokens"
 
-export const selectableList = recipe({
+export const selectableListWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: spacing[2],
+  padding: spacing[4],
+})
+
+export const selectableListItem = recipe({
   base: {
     width: "100%",
+    maxWidth: "332px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     padding: spacing[4],
     borderRadius: radius.xl,
-    ...typography.body.md,
   },
   variants: {
     variant: {
       default: {
         border: `1px solid ${colorVars.neutral.light[400]}`,
+        backgroundColor: colorVars.neutral.light[50],
       },
       selected: {
+        border: `1px solid ${colorVars.highlight[50]}`,
         backgroundColor: colorVars.highlight[50],
       },
     },
@@ -28,7 +37,13 @@ export const selectableList = recipe({
   },
 })
 
-export const selectableListIcon = style({
+export const selectableListItemLabel = style({
+  display: "block",
+  ...typography.body.md,
+})
+
+export const selectableListItemIcon = style({
   width: "12px",
   height: "12px",
+  display: "block",
 })
