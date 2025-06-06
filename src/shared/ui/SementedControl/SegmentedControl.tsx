@@ -11,6 +11,7 @@ import {
 interface SegmentedControlValueType {
   defaultValue: string
   selectedValue: string
+  // eslint-disable-next-line no-unused-vars
   onSelectedValue: (value: string) => void
 }
 
