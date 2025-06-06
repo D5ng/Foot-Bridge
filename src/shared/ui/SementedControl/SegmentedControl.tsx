@@ -8,7 +8,7 @@ import {
   segmentedControlWrapper,
 } from "./SegmentedControl.css"
 
-interface SegmentedControlValueType {
+interface SegmentedControlContextValue {
   defaultValue: string
   selectedValue: string
   // eslint-disable-next-line no-unused-vars
@@ -18,9 +18,9 @@ interface SegmentedControlValueType {
 const SegmentedControlsContext = createScopedContext()
 
 const [SegmentedControlsContextProvider, useSegmentedControlsContext] =
-  SegmentedControlsContext<SegmentedControlValueType>()
+  SegmentedControlsContext<SegmentedControlContextValue>()
 
-interface SegmentControlProps extends Pick<SegmentedControlValueType, "defaultValue"> {
+interface SegmentControlProps extends Pick<SegmentedControlContextValue, "defaultValue"> {
   children: ReactNode
 }
 
