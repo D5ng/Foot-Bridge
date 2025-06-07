@@ -13,7 +13,7 @@ export default function Header() {
           {HEADER_NAVIGATION_ITEMS.map((item) => (
             <li key={item.id}>
               <Link to={item.href}>
-                <img src={item.icon} alt={item.alt} />
+                <img src={item.icon} alt={item.alt} title={item.alt} />
               </Link>
             </li>
           ))}
