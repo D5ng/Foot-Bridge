@@ -1,7 +1,6 @@
 import clsx from "clsx"
 import type { HTMLAttributes, ReactNode } from "react"
-import { createScopedContext } from "@/shared/utils"
-import { Slot } from "@/shared/lib"
+import { createScopedContext, Slot } from "@/shared/lib"
 import { alertContent, alertList, alertTitle, alertWrapper, type AlertVariants } from "./Alert.css"
 
 interface AlertContextValue {
