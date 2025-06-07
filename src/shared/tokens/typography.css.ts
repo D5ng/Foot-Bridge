@@ -47,7 +47,7 @@ export const typography = {
   },
   caption: {
     md: {
-      fontSize: "0.875rem", // 14px
+      fontSize: "0.625rem", // 10px
       fontWeight: 700,
     },
   },
@@ -65,4 +65,4 @@ export const typography = {
       fontWeight: 600,
     },
   },
-};
+}

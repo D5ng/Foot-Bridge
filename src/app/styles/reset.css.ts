@@ -1,6 +1,6 @@
-import { globalStyle } from "@vanilla-extract/css";
-import * as layers from "./layer.css";
-import { colorVars } from "../../shared/tokens/colors.css";
+import { globalStyle } from "@vanilla-extract/css"
+import * as layers from "./layer.css"
+import { colorVars } from "../../shared/tokens/colors.css"
 
 /**
  * 'display' 속성만 제외한 모든 "User-Agent-StyleSheet" 스타일을 제거합니다.
@@ -16,17 +16,14 @@ import { colorVars } from "../../shared/tokens/colors.css";
  *   hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
  */
 
-globalStyle(
-  "*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))",
-  {
-    "@layer": {
-      [layers.reset]: {
-        all: "unset",
-        display: "revert",
-      },
+globalStyle("*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))", {
+  "@layer": {
+    [layers.reset]: {
+      all: "unset",
+      display: "revert",
     },
-  }
-);
+  },
+})
 
 /**
  * 기본 box-sizing border-box로 설정
@@ -38,7 +35,7 @@ globalStyle("*, *::before, *::after", {
       boxSizing: "border-box",
     },
   },
-});
+})
 
 /**
  * 모바일 사파리에서 가로 모드로 전환할 때 글꼴 크기가 자동으로 커지는 현상을 방지
@@ -52,7 +49,7 @@ globalStyle("html", {
       textSizeAdjust: "none",
     },
   },
-});
+})
 
 /**
  * a 태그와 button 태그에 pointer 재적용
@@ -64,7 +61,7 @@ globalStyle("a, button", {
       cursor: "pointer",
     },
   },
-});
+})
 
 /**
  * 리스트 스타일 제거 (불릿/넘버)
@@ -76,7 +73,7 @@ globalStyle("ol, ul, menu, summary", {
       listStyle: "none",
     },
   },
-});
+})
 
 /**
  * 이미지 요소가 컨테이너의 크기를 넘지 않도록 설정
@@ -89,7 +86,7 @@ globalStyle("img", {
       maxBlockSize: "100%",
     },
   },
-});
+})
 
 /**
  * 테이블 셀 사이의 기본 간격을 제거
@@ -101,7 +98,7 @@ globalStyle("table", {
       borderCollapse: "collapse",
     },
   },
-});
+})
 
 /**
  * 사파리 브라우저에서 user-select:none을 적용할 때 발생할 수 있는 문제를 방지하고, 텍스트 입력 요소가 정상적으로 동작
@@ -114,7 +111,7 @@ globalStyle("input, textarea", {
       WebkitUserSelect: "auto",
     },
   },
-});
+})
 
 /**
  * 사파리 브라우저에서 textarea 요소의 white-space 속성을 기본값으로 되돌리기 위해 사용됩니다.
@@ -126,7 +123,7 @@ globalStyle("textarea", {
       whiteSpace: "revert",
     },
   },
-});
+})
 
 /**
  * meter 태그 사용을 위한 최소한의 스타일 설정
@@ -139,7 +136,7 @@ globalStyle("meter", {
       appearance: "revert",
     },
   },
-});
+})
 
 /**
  * pre 태그의 브라우저 기본 스타일을 복원, box-sizing border-box 설정
@@ -152,7 +149,7 @@ globalStyle(":where(pre)", {
       boxSizing: "border-box",
     },
   },
-});
+})
 
 /**
  * input의 placeholder의 컬러를 지정하지 않음
@@ -164,7 +161,7 @@ globalStyle("::placeholder", {
       color: "unset",
     },
   },
-});
+})
 
 /**
  * hidden 속성을 가진 요소의 display none을 적용
@@ -177,7 +174,7 @@ globalStyle(":where([hidden])", {
       display: "none",
     },
   },
-});
+})
 
 /**
  * contenteditable 요소의 편집 기능이 제대로 동작하도록 설정
@@ -198,7 +195,7 @@ globalStyle(':where([contenteditable]:not([contenteditable="false"]))', {
       WebkitUserSelect: "auto",
     },
   },
-});
+})
 
 /**
  * draggable 속성이 있는 요소에서 드래그 기능이 제대로 작동하도록 설정
@@ -211,7 +208,7 @@ globalStyle(':where([draggable="true"])', {
       WebkitUserDrag: "element",
     },
   },
-});
+})
 
 /**
  * modal의 기본 동작 복원
@@ -224,11 +221,17 @@ globalStyle(":where(dialog:modal)", {
       boxSizing: "border-box",
     },
   },
-});
+})
 
 /* Custom Reset CSS */
 globalStyle("html, body", {
   fontFamily: "Pretendard",
   color: colorVars.neutral.dark[900],
   lineHeight: 1.5,
-});
+})
+
+globalStyle("img", {
+  display: "block",
+  objectFit: "cover",
+  objectPosition: "center",
+})
