@@ -1,6 +1,6 @@
 import { useState, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from "react"
 import clsx from "clsx"
-import { createScopedContext } from "@/shared/utils"
+import { createScopedContext } from "@/shared/lib"
 import {
   segmentedContent,
   segmentedControlList,

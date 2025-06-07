@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import clsx from "clsx"
 import { useState, type HTMLAttributes, type ReactNode } from "react"
-import { createScopedContext } from "@/shared/utils"
+import { createScopedContext } from "@/shared/lib"
 import { CheckIcon } from "@/shared/assets/images"
 import {
   selectableListItem,
