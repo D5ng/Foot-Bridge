@@ -30,6 +30,9 @@ export const spacing = {
   /** 16px */
   4: "1rem",
 
+  /** 18px */
+  4.5: "1.125rem",
+
   /** 20px */
   5: "1.25rem",
 

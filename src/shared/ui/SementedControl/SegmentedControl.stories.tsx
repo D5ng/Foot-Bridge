@@ -9,7 +9,7 @@ import {
 
 function SegmentedControlStory() {
   return (
-    <SegmentedControl defaultValue="section1">
+    <SegmentedControl defaultValue="section1" onValueChange={() => {}}>
       <SegmentedControlWrapper>
         <SegmentedControlList>
           <SegmentedControlOption value="section1">Section1</SegmentedControlOption>

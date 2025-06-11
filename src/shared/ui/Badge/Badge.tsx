@@ -1,7 +1,7 @@
 import { type HTMLAttributes } from "react"
 import clsx from "clsx"
 import { Slot, Slottable } from "@/shared/lib"
-import { badge, badgeContent, type BadgeVariants } from "./Badge.css"
+import { badge, type BadgeVariants } from "./Badge.css"
 
 interface Props<T> extends HTMLAttributes<T>, BadgeVariants {
   asChild?: boolean
@@ -10,17 +10,15 @@ interface Props<T> extends HTMLAttributes<T>, BadgeVariants {
 export default function Badge<T extends HTMLElement = HTMLElement>({
   asChild,
   children,
-  variant,
+  variant = "default",
   className,
   ...restProps
 }: Props<T>) {
-  const Element = asChild ? Slot : "span"
+  const Component = asChild ? Slot : "span"
 
   return (
-    <Element className={clsx(badge({ variant }), className)} {...restProps}>
-      <span className={badgeContent}>
-        <Slottable>{children}</Slottable>
-      </span>
-    </Element>
+    <Component className={clsx(badge({ variant }), className)} {...restProps}>
+      <Slottable>{children}</Slottable>
+    </Component>
   )
 }
