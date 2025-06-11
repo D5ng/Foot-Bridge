@@ -20,6 +20,9 @@ export const radius = {
   /** 1rem (16px) */
   "2xl": "1rem",
 
+  /** 32px */
+  "3xl": "32px",
+
   /** 9999px - for pill/circle shapes */
   full: "9999px",
 } as const
