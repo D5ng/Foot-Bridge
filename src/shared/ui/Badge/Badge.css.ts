@@ -1,12 +1,12 @@
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes"
-import { style } from "@vanilla-extract/css"
 import { colorVars, radius, spacing, typography } from "@/shared/tokens"
 
 export const badge = recipe({
   base: {
-    padding: `${spacing["1.5"]} ${spacing[2]}`,
+    padding: `${spacing["1.5"]} ${spacing[3]}`,
     borderRadius: radius.xl,
     ...typography.action.sm,
+    lineHeight: "normal",
   },
 
   variants: {
@@ -25,10 +25,6 @@ export const badge = recipe({
   defaultVariants: {
     variant: "default",
   },
-})
-
-export const badgeContent = style({
-  padding: `0 ${spacing[1]}`,
 })
 
 export type BadgeVariants = NonNullable<RecipeVariants<typeof badge>>

@@ -6,13 +6,13 @@ export const selectableListWrapper = style({
   display: "flex",
   flexDirection: "column",
   gap: spacing[2],
-  padding: spacing[4],
+  padding: `${spacing[4]} 0`,
 })
 
 export const selectableListItem = recipe({
   base: {
     width: "100%",
-    maxWidth: "332px",
+    minWidth: "332px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -22,7 +22,7 @@ export const selectableListItem = recipe({
   variants: {
     variant: {
       default: {
-        border: `1px solid ${colorVars.neutral.light[400]}`,
+        border: `1px solid ${colorVars.neutral.light[200]}`,
         backgroundColor: colorVars.neutral.light[50],
       },
       selected: {

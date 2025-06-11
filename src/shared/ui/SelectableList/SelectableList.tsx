@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import clsx from "clsx"
-import { useState, type HTMLAttributes, type ReactNode } from "react"
+import { type HTMLAttributes, type ReactNode } from "react"
 import { createScopedContext } from "@/shared/lib"
 import { CheckIcon } from "@/shared/assets/images"
+import { useCheckboxGroup } from "@/shared/hooks"
 import {
   selectableListItem,
   selectableListItemIcon,
@@ -11,31 +12,25 @@ import {
 } from "./SelectableList.css"
 
 interface SelectableListContextValue {
-  selectedValues: string[]
-  onToggleValue: (value: string) => void
+  defaultValues?: string[]
+  _internalSelectedValues: string[]
+  onToggleValue(value: string): void
 }
 
 const SelectableListContext = createScopedContext()
 
 const [SelectableListContextProvider, useSelectableListContext] = SelectableListContext<SelectableListContextValue>()
 
-interface SelectableListProps {
+interface SelectableListProps extends Omit<SelectableListContextValue, "_internalSelectedValues" | "onToggleValue"> {
   children: ReactNode
+  onValueChange?(value: string[]): void
 }
 
-function SelectableList({ children }: SelectableListProps) {
-  const [selectedValues, setSelectedValues] = useState<string[]>([])
-
-  const handleToggleValue = (value: string) => {
-    const newSelectedValues = selectedValues.includes(value)
-      ? selectedValues.filter((v) => v !== value)
-      : [...selectedValues, value]
-
-    setSelectedValues(newSelectedValues)
-  }
+function SelectableList({ children, onValueChange, defaultValues }: SelectableListProps) {
+  const { checkedItems, onChange } = useCheckboxGroup<string>({ defaultValues, callback: onValueChange })
 
   return (
-    <SelectableListContextProvider value={{ selectedValues, onToggleValue: handleToggleValue }}>
+    <SelectableListContextProvider value={{ _internalSelectedValues: checkedItems, onToggleValue: onChange }}>
       {children}
     </SelectableListContextProvider>
   )
@@ -56,24 +51,19 @@ type SelectableListItemChildren = ReactNode | ((props: { isSelected: boolean }) 
 interface SelectableListItemProps {
   children: SelectableListItemChildren
   value: string
-  onSelect?: (value: string) => void
   className?: string
+  onSelect?(value: string): void
 }
 
-function SelectableListItem({ children, className, onSelect, value }: SelectableListItemProps) {
-  const { selectedValues, onToggleValue } = useSelectableListContext()
-  const isSelected = selectedValues.includes(value)
-
-  const handleClick = () => {
-    onSelect?.(value)
-    onToggleValue(value)
-  }
+function SelectableListItem({ children, className, value }: SelectableListItemProps) {
+  const { _internalSelectedValues, onToggleValue } = useSelectableListContext()
+  const isSelected = _internalSelectedValues.includes(value)
 
   return (
     <li>
       <button
         className={clsx(selectableListItem({ variant: isSelected ? "selected" : "default" }), className)}
-        onClick={handleClick}
+        onClick={() => onToggleValue(value)}
         aria-pressed={isSelected}
         type="button"
       >
