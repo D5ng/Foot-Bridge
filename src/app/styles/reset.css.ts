@@ -234,4 +234,6 @@ globalStyle("img", {
   display: "block",
   objectFit: "cover",
   objectPosition: "center",
+  width: "100%",
+  height: "100%",
 })
