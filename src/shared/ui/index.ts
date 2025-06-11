@@ -9,6 +9,7 @@ export { default as Input } from "./Input/Input"
 export * from "./SelectableList/SelectableList"
 export * from "./SementedControl/SegmentedControl"
 export * from "./Alert/Alert"
+export * from "./Form/Form"
 
 // Type exports
 export type { ButtonVariants } from "./Button/Button"
