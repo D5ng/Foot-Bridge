@@ -1,19 +1,18 @@
 import { Link } from "react-router"
-import { useAuthStore } from "@/shared/stores/authStore"
 import { header, headerLogo, headerMenu } from "./Header.css"
 import { HEADER_NAVIGATION_ITEMS } from "./Header.constants"
 
 export default function Header() {
-  const { isAuthenticated, user, signOut, isLoading } = useAuthStore()
+  // const { isAuthenticated, user, signOut, isLoading } = useAuthStore()
 
-  const handleSignOut = async () => {
-    try {
-      await signOut()
-    } catch (error) {
-      console.error("Sign out failed:", error)
-      alert("로그아웃에 실패했습니다.")
-    }
-  }
+  // const handleSignOut = async () => {
+  //   try {
+  //     await signOut()
+  //   } catch (error) {
+  //     console.error("Sign out failed:", error)
+  //     alert("로그아웃에 실패했습니다.")
+  //   }
+  // }
 
   return (
     <header className={header}>
