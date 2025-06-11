@@ -1,16 +1,12 @@
 import { style } from "@vanilla-extract/css"
-import { recipe } from "@vanilla-extract/recipes"
 import { colorVars, radius, spacing, typography } from "@/shared/tokens"
-
-export const segmentedControl = recipe({
-  variants: {},
-})
 
 export const segmentedControlWrapper = style({
   padding: spacing[1],
   backgroundColor: colorVars.neutral.light[100],
   borderRadius: radius["2xl"],
-  maxWidth: "332px",
+  minWidth: "332px",
+  margin: `${spacing[4]} 0`,
   ...typography.heading.sm,
 })
 

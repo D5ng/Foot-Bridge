@@ -1,6 +1,8 @@
-import { useState, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from "react"
+/* eslint-disable no-unused-vars */
+import { type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from "react"
 import clsx from "clsx"
 import { createScopedContext } from "@/shared/lib"
+import { useSelect } from "@/shared/hooks"
 import {
   segmentedContent,
   segmentedControlList,
@@ -10,9 +12,8 @@ import {
 
 interface SegmentedControlContextValue {
   defaultValue: string
-  selectedValue: string
-  // eslint-disable-next-line no-unused-vars
-  onSelectedValue: (value: string) => void
+  selectedItem: string | null
+  onChange(value: string): void
 }
 
 const SegmentedControlsContext = createScopedContext()
@@ -22,16 +23,14 @@ const [SegmentedControlsContextProvider, useSegmentedControlsContext] =
 
 interface SegmentControlProps extends Pick<SegmentedControlContextValue, "defaultValue"> {
   children: ReactNode
+  onValueChange(value: string): void
 }
 
-function SegmentedControl({ children, defaultValue }: SegmentControlProps) {
-  const [selectedValue, setSelectedValue] = useState(defaultValue)
-  const onSelectedValue = (value: string) => {
-    setSelectedValue(value)
-  }
+function SegmentedControl({ children, defaultValue, onValueChange }: SegmentControlProps) {
+  const { selectedItem, onChange } = useSelect<string>({ defaultValues: defaultValue, callback: onValueChange })
 
   return (
-    <SegmentedControlsContextProvider value={{ defaultValue, selectedValue, onSelectedValue }}>
+    <SegmentedControlsContextProvider value={{ defaultValue, selectedItem, onChange }}>
       {children}
     </SegmentedControlsContextProvider>
   )
@@ -59,11 +58,11 @@ interface SegmentedControlOptionProps extends ButtonHTMLAttributes<HTMLButtonEle
 
 function SegmentedControlOption({ children, className, value, ...restProps }: SegmentedControlOptionProps) {
   const context = useSegmentedControlsContext()
-  const isSelected = context.selectedValue === value
+  const isSelected = context.selectedItem === value
 
   return (
     <li className={clsx(segmentedControlOption, className, isSelected && "selected")}>
-      <button type="button" {...restProps} onClick={() => context.onSelectedValue(value)}>
+      <button type="button" {...restProps} onClick={() => context.onChange(value)}>
         {children}
       </button>
     </li>
@@ -76,7 +75,7 @@ interface SegmentedContentProps extends HTMLAttributes<HTMLDivElement> {
 
 function SegmentedContent({ children, className, value, ...restProps }: SegmentedContentProps) {
   const context = useSegmentedControlsContext()
-  const isSelected = context.selectedValue === value
+  const isSelected = context.selectedItem === value
 
   if (!isSelected) {
     return null
