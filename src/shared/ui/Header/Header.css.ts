@@ -17,3 +17,18 @@ export const headerMenu = style({
   alignItems: "center",
   gap: spacing[2.5],
 })
+
+export const authButton = style({
+  ...typography.body.sm,
+  padding: `${spacing[1]} ${spacing[2]}`,
+  border: "1px solid #ccc",
+  borderRadius: "4px",
+  backgroundColor: "#fff",
+  cursor: "pointer",
+  textDecoration: "none",
+  color: "#333",
+
+  ":hover": {
+    backgroundColor: "#f5f5f5",
+  },
+})
