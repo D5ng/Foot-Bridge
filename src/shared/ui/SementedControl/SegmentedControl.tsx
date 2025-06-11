@@ -23,7 +23,7 @@ const [SegmentedControlsContextProvider, useSegmentedControlsContext] =
 
 interface SegmentControlProps extends Pick<SegmentedControlContextValue, "defaultValue"> {
   children: ReactNode
-  onValueChange(value: string): void
+  onValueChange?(value: string): void
 }
 
 function SegmentedControl({ children, defaultValue, onValueChange }: SegmentControlProps) {
