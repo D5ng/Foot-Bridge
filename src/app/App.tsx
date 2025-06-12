@@ -5,6 +5,7 @@ import { useAuthStore } from "@/shared/stores/authStore"
 import { queryClient } from "@/shared/lib/queryClient"
 import { CreateTeamPage, LoginPage, MatchListPage, MyPage } from "../pages"
 import "./styles/global.css"
+import ProtectedRoute from "./providers/ProtectedRoute"
 
 export default function App() {
   const { initialize } = useAuthStore()
@@ -24,7 +25,11 @@ export default function App() {
     },
     {
       path: "/my",
-      Component: MyPage,
+      Component: () => (
+        <ProtectedRoute fallback={<div>Loading...</div>}>
+          <MyPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/create-team",
