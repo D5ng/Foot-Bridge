@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { supabase } from "@/shared/lib/supabase"
+import { supabase } from "./supabase"
 
 export async function signInWithKakao() {
   try {
