@@ -3,8 +3,9 @@ import { useEffect } from "react"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { useAuthStore } from "@/shared/stores/authStore"
 import { queryClient } from "@/shared/lib/queryClient"
-import { CreateTeamPage, LoginPage, MatchListPage, MyPage } from "../pages"
+import { LoginPage, MatchListPage, MyPage } from "../pages"
 import "./styles/global.css"
+import ProtectedRoute from "./providers/ProtectedRoute"
 
 export default function App() {
   const { initialize } = useAuthStore()
@@ -24,11 +25,11 @@ export default function App() {
     },
     {
       path: "/my",
-      Component: MyPage,
-    },
-    {
-      path: "/create-team",
-      Component: CreateTeamPage,
+      Component: () => (
+        <ProtectedRoute fallback={<div>Loading...</div>}>
+          <MyPage />
+        </ProtectedRoute>
+      ),
     },
   ])
 
