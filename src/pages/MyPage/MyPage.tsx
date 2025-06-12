@@ -1,6 +1,5 @@
-import ProfileAvatar from "@/features/myPage/ui/ProfileAvatar/ProfileAvatar"
-import AccountActions from "@/features/myPage/ui/AccountActions/AccountActions"
 import { Header } from "@/shared/ui"
+import { ProfileAvatar, AccountActions } from "@/features/myPage/ui"
 
 export default function MyPage() {
   return (
