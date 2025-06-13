@@ -1,5 +1,4 @@
 import { useFunnel } from "@use-funnel/react-router"
-import { z } from "zod"
 import {
   AverageAgeStep,
   BasicInfoStep,
@@ -10,51 +9,21 @@ import {
   UploadEmblemStep,
 } from "@/features/createTeam/ui"
 import {
-  AVERAGE_AGE_OPTIONS,
-  DAYS,
-  MATCH_TIMES_OPTIONS,
-  SKILL_LEVEL_OPTIONS,
-} from "@/features/createTeam/ui/form/form.constants"
-
-const teamBasicInfoStepSchema = z
-  .object({
-    teamName: z.string(),
-    teamLeaderName: z.string(),
-    teamLeaderPhoneNumber: z.string(),
-  })
-  .partial()
-
-const teamActivityDaysStepSchema = teamBasicInfoStepSchema.extend({
-  teamActivityDays: z.array(z.enum(DAYS)),
-})
-
-const matchTimeStepSchema = teamActivityDaysStepSchema.extend({
-  matchTime: z.array(z.enum(MATCH_TIMES_OPTIONS)),
-})
-
-const averageAgeStepSchema = matchTimeStepSchema.extend({
-  averageAge: z.array(z.enum(AVERAGE_AGE_OPTIONS)),
-})
-
-const skillLevelStepSchema = averageAgeStepSchema.extend({
-  skillLevel: z.enum(SKILL_LEVEL_OPTIONS),
-})
-
-const teamIntroStepSchema = skillLevelStepSchema.extend({
-  teamIntro: z.string(),
-})
-
-const uploadEmblemStepSchema = teamIntroStepSchema.extend({
-  emblem: z.string(),
-})
+  teamBasicInfoStepSchema,
+  teamActivityDaysStepSchema,
+  matchTimeStepSchema,
+  averageAgeStepSchema,
+  skillLevelStepSchema,
+  teamIntroStepSchema,
+  uploadEmblemStepSchema,
+} from "@/features/createTeam/ui/form/form.schema"
 
 export default function CreateTeamPage() {
   const funnel = useFunnel({
     id: "create-team",
     steps: {
       basicInfo: {
-        parse: teamBasicInfoStepSchema.required({ teamName: true, teamLeaderName: true, teamLeaderPhoneNumber: true })
-          .parse,
+        parse: teamBasicInfoStepSchema.parse,
       },
       teamActivityDays: {
         parse: teamActivityDaysStepSchema.parse,
