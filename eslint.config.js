@@ -23,6 +23,7 @@ export default tseslint.config(
       "jsx-a11y": jsxA11y,
       import: eslintPluginImport,
       "unused-imports": unusedImports,
+      "@typescript-eslint": tseslint.plugin,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -37,6 +38,15 @@ export default tseslint.config(
       "import/no-extraneous-dependencies": "error",
       "unused-imports/no-unused-imports": "warn",
       "unused-imports/no-unused-vars": ["warn", { vars: "all", varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
     },
     settings: {
       "import/resolver": {
