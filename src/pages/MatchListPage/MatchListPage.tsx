@@ -1,5 +1,4 @@
-import MatchListBanner from "@/features/matchList/ui/MathchListBanner/MatchListBanner"
-import MatchList from "@/features/matchList/ui/MatchList/MatchList"
+import { MatchListBanner, MatchList } from "@/features/matchList/ui"
 import { Header, MonthlyCalendar } from "@/shared/ui"
 
 export default function MatchListPage() {
