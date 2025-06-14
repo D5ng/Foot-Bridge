@@ -6,7 +6,7 @@ export const AVERAGE_AGE_OPTIONS = ["10~19세", "20~24세", "25~29세", "30~34�
 
 export const SKILL_LEVEL_OPTIONS = ["비기너", "아마추어", "세미프로", "프로"] as const
 
-export const SKILL_LEVEL_OPTIONS_DESCRIPTION = {
+export const SKILL_LEVEL_OPTIONS_DESCRIPTION = Object.freeze({
   비기너: {
     label: "비기너",
     description: "풋살을 이제 막 시작한 팀. 규칙은 알고 기본 플레이는 가능하지만, 포지션이나 팀워크는 아직 서툴러요.",
@@ -47,4 +47,17 @@ export const SKILL_LEVEL_OPTIONS_DESCRIPTION = {
       팀워크: "서로 말하지 않아도 움직임이 정해져 있어요",
     },
   },
-}
+})
+
+export const FORM_FIELD_MAPPING = Object.freeze({
+  teamName: "팀명",
+  teamLeaderName: "대표자",
+  teamLeaderPhoneNumber: "대표 연락처",
+  teamActivityDays: "주 활동 요일",
+  matchTime: "매치 시간",
+  averageAge: "평균 연령대",
+  skillLevel: "초기 진단 실력",
+  teamIntro: "팀 소개",
+  emblem: "팀 엠블럼",
+  emblemFile: "팀 엠블럼 파일",
+})

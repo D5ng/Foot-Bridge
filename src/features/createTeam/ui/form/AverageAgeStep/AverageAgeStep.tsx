@@ -1,53 +1,82 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
 import { NavigationBar, NavigationBarBackButton, NavigationBarTitle } from "@/shared/ui/NavigationBar/NavigationBar"
 import {
-  FormRootLayout,
-  FormHeader,
-  FormHeaderTitle,
-  FormHeaderDescription,
+  FormLayoutRoot,
+  FormLayoutHeader,
+  FormLayoutHeaderTitle,
+  FormLayoutHeaderDescription,
   Badge,
-  FormButtonLayout,
+  FormLayoutButtonLayout,
   Button,
+  ErrorMessage,
 } from "@/shared/ui"
-import { useSelect } from "@/shared/hooks"
-import type { AverageAgeOption } from "../form.type"
+import type { AverageAgeContext, AverageAgeOption } from "../form.type"
 import { AVERAGE_AGE_OPTIONS } from "../form.constants"
 import { averageAgeFormBadgeLayout } from "./AverageAgeStep.css"
+import { averageAgeFormSchema } from "../form.schema"
 
 interface Props {
-  onNext: (averageAgeOptions: AverageAgeOption | null) => void
+  onNext: (context: AverageAgeContext) => void
+  onBack: () => void
 }
 
-export default function AverageAgeStep({ onNext }: Props) {
-  const { selectedItem, onChange } = useSelect<AverageAgeOption>({ defaultValues: AVERAGE_AGE_OPTIONS[1] })
+export default function AverageAgeStep({ onNext, onBack }: Props) {
+  const {
+    setValue,
+    watch,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<AverageAgeContext>({
+    resolver: zodResolver(averageAgeFormSchema),
+    mode: "onTouched",
+  })
+
+  const averageAgeOptions = watch("averageAge") || []
+
+  const toggleAverageAge = (age: AverageAgeOption) => {
+    setValue("averageAge", age, { shouldValidate: true })
+  }
+
+  const onSubmit = (data: AverageAgeContext) => {
+    onNext(data)
+  }
 
   return (
     <>
       <NavigationBar>
-        <NavigationBarBackButton />
+        <NavigationBarBackButton onClick={onBack} />
         <NavigationBarTitle>팀 특성 정보</NavigationBarTitle>
       </NavigationBar>
       <main>
-        <FormRootLayout>
-          <FormHeader>
-            <FormHeaderTitle>우리 팀, 평균 나이는 어느 정도인가요?</FormHeaderTitle>
-            <FormHeaderDescription>대략적인 연령대를 선택해 주세요.</FormHeaderDescription>
-          </FormHeader>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormLayoutRoot>
+            <FormLayoutHeader>
+              <FormLayoutHeaderTitle>우리 팀, 평균 나이는 어느 정도인가요?</FormLayoutHeaderTitle>
+              <FormLayoutHeaderDescription>대략적인 연령대를 선택해 주세요.</FormLayoutHeaderDescription>
+            </FormLayoutHeader>
 
-          <div className={averageAgeFormBadgeLayout}>
-            {AVERAGE_AGE_OPTIONS.map((item) => (
-              <Badge key={item} asChild variant={selectedItem === item ? "focus" : "default"}>
-                <button type="button" onClick={() => onChange(item)}>
-                  {item}
-                </button>
-              </Badge>
-            ))}
-          </div>
+            <div className={averageAgeFormBadgeLayout}>
+              {AVERAGE_AGE_OPTIONS.map((age) => (
+                <Badge key={age} asChild variant={averageAgeOptions.includes(age) ? "focus" : "default"}>
+                  <button type="button" onClick={() => toggleAverageAge(age)}>
+                    {age}
+                  </button>
+                </Badge>
+              ))}
+            </div>
+            <ErrorMessage errors={errors} name="averageAge" />
 
-          <FormButtonLayout>
-            <Button onClick={() => onNext(selectedItem)}>다음</Button>
-            <Button variant="terciary">이전 항목</Button>
-          </FormButtonLayout>
-        </FormRootLayout>
+            <FormLayoutButtonLayout>
+              <Button type="submit" disabled={!isValid}>
+                다음
+              </Button>
+              <Button variant="terciary" type="button" onClick={onBack}>
+                이전 항목
+              </Button>
+            </FormLayoutButtonLayout>
+          </FormLayoutRoot>
+        </form>
       </main>
     </>
   )

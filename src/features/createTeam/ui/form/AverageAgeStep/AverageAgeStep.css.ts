@@ -4,6 +4,6 @@ import { spacing } from "@/shared/tokens"
 export const averageAgeFormBadgeLayout = style({
   display: "flex",
   flexWrap: "wrap",
-  gap: spacing[1],
-  padding: `${spacing[4]} 0`,
+  gap: spacing[2],
+  marginTop: spacing[4],
 })
