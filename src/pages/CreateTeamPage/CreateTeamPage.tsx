@@ -1,32 +1,38 @@
 import { useFunnel } from "@use-funnel/react-router"
 import {
-  AverageAgeStep,
+  CompleteStep,
   BasicInfoStep,
-  MatchTimeStep,
   SelectDaysStep,
+  MatchTimeStep,
+  AverageAgeStep,
   SkillLevelStep,
   TeamIntroStep,
   UploadEmblemStep,
 } from "@/features/createTeam/ui"
 import {
-  teamBasicInfoStepSchema,
-  teamActivityDaysStepSchema,
+  createTeamSchema,
+  activityDaysStepSchema,
   matchTimeStepSchema,
   averageAgeStepSchema,
   skillLevelStepSchema,
-  teamIntroStepSchema,
+  introStepSchema,
   uploadEmblemStepSchema,
+  completeStepSchema,
 } from "@/features/createTeam/ui/form/form.schema"
+import { createTeam } from "@/features/createTeam/api"
+import { useAuthStore } from "@/shared/stores/authStore"
 
 export default function CreateTeamPage() {
+  const { user } = useAuthStore()
+
   const funnel = useFunnel({
     id: "create-team",
     steps: {
       basicInfo: {
-        parse: teamBasicInfoStepSchema.parse,
+        parse: createTeamSchema.parse,
       },
       teamActivityDays: {
-        parse: teamActivityDaysStepSchema.parse,
+        parse: activityDaysStepSchema.parse,
       },
       matchTime: {
         parse: matchTimeStepSchema.parse,
@@ -38,63 +44,81 @@ export default function CreateTeamPage() {
         parse: skillLevelStepSchema.parse,
       },
       teamIntro: {
-        parse: teamIntroStepSchema.parse,
+        parse: introStepSchema.parse,
       },
       uploadEmblem: {
         parse: uploadEmblemStepSchema.parse,
       },
+      complete: {
+        parse: completeStepSchema.parse,
+      },
     },
     initial: {
       step: "basicInfo",
-      context: {
-        teamName: "",
-        teamLeaderName: "",
-        teamLeaderPhoneNumber: "",
-      },
+      context: {},
     },
   })
 
   return (
     <funnel.Render
-      basicInfo={({ history }) => (
-        <BasicInfoStep
-          onNext={({ teamName, teamLeaderName, teamLeaderPhoneNumber }) =>
-            history.push("teamActivityDays", { teamName, teamLeaderName, teamLeaderPhoneNumber, teamActivityDays: [] })
-          }
-        />
-      )}
-      teamActivityDays={({ history }) => (
-        <SelectDaysStep
-          onNext={() => {
-            history.push("matchTime", (prev) => ({ ...prev, matchTime: [] }))
-          }}
-        />
-      )}
-      matchTime={({ history }) => (
-        <MatchTimeStep onNext={() => history.push("averageAge", (prev) => ({ ...prev, averageAge: [] }))} />
-      )}
-      averageAge={({ history }) => (
-        <AverageAgeStep onNext={() => history.push("skillLevel", (prev) => ({ ...prev, skillLevel: "비기너" }))} />
-      )}
-      skillLevel={({ history }) => (
-        <SkillLevelStep onNext={() => history.push("teamIntro", (prev) => ({ ...prev, teamIntro: "" }))} />
-      )}
+      basicInfo={({ history }) => {
+        return <BasicInfoStep onNext={(data) => history.push("teamActivityDays", { ...data })} onBack={history.back} />
+      }}
+      teamActivityDays={({ history }) => {
+        return (
+          <SelectDaysStep
+            onNext={(data) => history.push("matchTime", (prev) => ({ ...prev, ...data }))}
+            onBack={history.back}
+          />
+        )
+      }}
+      matchTime={({ history }) => {
+        return (
+          <MatchTimeStep
+            onNext={(data) => history.push("averageAge", (prev) => ({ ...prev, ...data }))}
+            onBack={history.back}
+          />
+        )
+      }}
+      averageAge={({ history }) => {
+        return (
+          <AverageAgeStep
+            onNext={(data) => history.push("skillLevel", (prev) => ({ ...prev, ...data }))}
+            onBack={history.back}
+          />
+        )
+      }}
+      skillLevel={({ history }) => {
+        return (
+          <SkillLevelStep
+            onNext={(data) => history.push("teamIntro", (prev) => ({ ...prev, ...data }))}
+            onBack={history.back}
+          />
+        )
+      }}
       teamIntro={({ history }) => (
-        <TeamIntroStep onNext={() => history.push("uploadEmblem", (prev) => ({ ...prev, emblem: "" }))} />
-      )}
-      uploadEmblem={({ context }) => (
-        <UploadEmblemStep
-          onNext={() => {
-            const fullContext = {
-              ...context,
-              emblem: "",
-            }
-
-            // 예: 제출 처리
-            console.log("최종 제출:", fullContext)
-          }}
+        <TeamIntroStep
+          onNext={(data) => history.push("uploadEmblem", (prev) => ({ ...prev, ...data }))}
+          onBack={history.back}
         />
       )}
+      uploadEmblem={({ context, history }) => (
+        <UploadEmblemStep
+          onNext={async (data) => {
+            try {
+              const finalData = { ...context, ...data, owner_id: user!.id }
+              await createTeam(finalData)
+              history.push("complete", { ...context, ...data })
+            } catch (error) {
+              console.error("팀 생성 실패:", error)
+            }
+          }}
+          onBack={history.back}
+        />
+      )}
+      complete={({ context }) => {
+        return <CompleteStep data={context} />
+      }}
     />
   )
 }
