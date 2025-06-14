@@ -1,4 +1,4 @@
-import { MatchListBanner, MatchList } from "@/features/matchList/ui"
+import { MatchListBanner, MatchList, CreateMatchButton } from "@/features/matchList/ui"
 import { Header, MonthlyCalendar } from "@/shared/ui"
 
 export default function MatchListPage() {
@@ -8,6 +8,7 @@ export default function MatchListPage() {
       <main>
         <MatchListBanner />
         <MonthlyCalendar />
+        <CreateMatchButton />
         <MatchList />
       </main>
     </>
