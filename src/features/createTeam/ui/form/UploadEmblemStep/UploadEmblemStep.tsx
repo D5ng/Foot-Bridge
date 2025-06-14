@@ -11,7 +11,7 @@ import {
 import { Button } from "@/shared/ui"
 import EditIcon from "@/shared/ui/icons/EditIcon"
 import { colorVars } from "@/shared/tokens"
-import { uploadEmblem } from "@/features/createTeam/models/apis"
+import { uploadEmblem } from "@/features/createTeam/api"
 import { DEFAULT_EMBLEM_URL } from "@/shared/lib"
 import {
   uploadEmblemStepEditIconInput,
