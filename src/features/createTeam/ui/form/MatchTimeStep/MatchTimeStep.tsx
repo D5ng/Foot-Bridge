@@ -24,12 +24,7 @@ interface Props {
 }
 
 export default function MatchTimeStep({ onNext, onBack }: Props) {
-  const {
-    setValue,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<MatchTimeContext>({
+  const { setValue, watch, handleSubmit } = useForm<MatchTimeContext>({
     resolver: zodResolver(matchTimeFormSchema),
     mode: "onTouched",
   })
@@ -41,8 +36,6 @@ export default function MatchTimeStep({ onNext, onBack }: Props) {
   }
 
   const onSubmit = (data: MatchTimeContext) => {
-    console.log("onSubmit")
-    console.log(data)
     onNext(data)
   }
 

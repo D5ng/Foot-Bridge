@@ -75,7 +75,7 @@ export const useAuthStore = create<AuthState>()(
             })
 
             // 인증 상태 변화 구독 (한 번만)
-            supabase.auth.onAuthStateChange((event, session) => {
+            supabase.auth.onAuthStateChange((_event, session) => {
               set((prev) => {
                 const sameUser = prev.user?.id === session?.user?.id
                 const sameToken = prev.session?.access_token === session?.access_token
