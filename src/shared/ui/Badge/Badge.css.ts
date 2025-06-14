@@ -7,6 +7,7 @@ export const badge = recipe({
     borderRadius: radius.xl,
     ...typography.action.sm,
     lineHeight: "normal",
+    display: "inline-flex",
   },
 
   variants: {

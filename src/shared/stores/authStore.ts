@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
+
 import { create } from "zustand"
 import { devtools } from "zustand/middleware"
 import type { User, Session } from "@supabase/supabase-js"
-import { supabase } from "../api"
+import { supabase } from "@/shared/lib"
 
 interface AuthState {
   user: User | null
@@ -75,15 +75,22 @@ export const useAuthStore = create<AuthState>()(
             })
 
             // 인증 상태 변화 구독 (한 번만)
-            supabase.auth.onAuthStateChange((event, session) => {
-              console.log("Auth state changed:", event)
+            supabase.auth.onAuthStateChange((_event, session) => {
+              set((prev) => {
+                const sameUser = prev.user?.id === session?.user?.id
+                const sameToken = prev.session?.access_token === session?.access_token
 
-              set({
-                session,
-                user: session?.user ?? null,
-                isAuthenticated: !!session,
-                isLoading: false,
-                isInitialized: true,
+                if (sameUser && sameToken) {
+                  return prev
+                }
+
+                return {
+                  session,
+                  user: session?.user ?? null,
+                  isAuthenticated: !!session,
+                  isLoading: false,
+                  isInitialized: true,
+                }
               })
             })
           } catch (error) {
