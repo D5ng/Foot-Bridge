@@ -1,5 +1,8 @@
 export * from "./schemas"
 export * from "./types"
 
-/** Query Hooks */
+/** mutation */
 export { useCreateMatchMutation } from "./useCreateMatch.mutate"
+
+/** Query Hooks */
+export { useFetchTeamByOwnerId } from "./useFetchTeamByOwnerId.query"
