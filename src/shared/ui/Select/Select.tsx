@@ -112,7 +112,7 @@ function SelectOption({ children, className, value, ...restProps }: SelectOption
   const { onChange } = useSelectContext()
 
   return (
-    <li className={selectOptionListItem}>
+    <li className={selectOptionListItem} {...restProps}>
       <button type="button" onClick={() => onChange(value)} className={clsx(selectOptionListItemButton, className)}>
         {children}
       </button>
