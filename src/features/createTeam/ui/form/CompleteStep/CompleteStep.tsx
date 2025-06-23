@@ -9,7 +9,7 @@ import {
 import { formatPhoneNumber } from "@/shared/utils"
 import type { FormFieldKey } from "@/features/createTeam/models/types"
 import { FORM_FIELD_MAPPING } from "@/features/createTeam/consts"
-import type { CreateTeamPayload } from "@/entities/team"
+import type { CreateTeamPayload, MATCH_TIMES_OPTIONS } from "@/entities/team"
 import {
   completeEmblemWrapper,
   completeInfoList,
@@ -65,14 +65,13 @@ export default function CompleteStep({ data }: Props) {
                   return (
                     <li className={value.length === 0 ? completeInfoItem : completeInfoItemValueListWrapper} key={key}>
                       <span className={completeInfoItemLabel}>{FORM_FIELD_MAPPING[key]}</span>
-                      {value.length === 0 && <div className={completeInfoItemValue}>{value.join(", ")}</div>}
-                      {value.length > 0 && (
-                        <ul className={completeInfoItemValueList}>
-                          {value.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      )}
+                      {/* {value.length === 0 && <div className={completeInfoItemValue}>{value.join(", ")}</div>} */}
+
+                      <ul className={completeInfoItemValueList}>
+                        {value.map((item: (typeof MATCH_TIMES_OPTIONS)[number]) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
                     </li>
                   )
                 }
