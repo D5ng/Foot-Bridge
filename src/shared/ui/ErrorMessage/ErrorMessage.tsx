@@ -7,7 +7,7 @@ interface Props {
   name: string
 }
 
-export function ErrorMessage({ errors, name }: Props) {
+export default function ErrorMessage({ errors, name }: Props) {
   return (
     <HookFormErrorMessage
       errors={errors}

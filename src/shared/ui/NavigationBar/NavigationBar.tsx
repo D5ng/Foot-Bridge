@@ -8,11 +8,17 @@ const NavigationBarContext = createScopedContext()
 
 const [NavigationBarProvider] = NavigationBarContext()
 
-function NavigationBar({ children }: { children: React.ReactNode }) {
+interface NavigationBarProps {
+  children: React.ReactNode
+  navClassName?: string
+  wrapperClassName?: string
+}
+
+function NavigationBar({ children, navClassName, wrapperClassName }: NavigationBarProps) {
   return (
     <NavigationBarProvider value={{}}>
-      <nav className={navigationBar}>
-        <div className={navigationBarWrapper}>{children}</div>
+      <nav className={clsx(navigationBar, navClassName)}>
+        <div className={clsx(navigationBarWrapper, wrapperClassName)}>{children}</div>
       </nav>
     </NavigationBarProvider>
   )
