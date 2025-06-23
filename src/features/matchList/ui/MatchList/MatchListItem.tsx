@@ -1,4 +1,5 @@
 import { Badge } from "@/shared/ui"
+import type { Match } from "@/entities/match"
 import {
   matchItemInfo,
   matchItemTime,
@@ -8,21 +9,27 @@ import {
   matchItemRight,
   matchItemTagItem,
   matchItemBadge,
+  matchItemTagItemImage,
 } from "./MatchListItem.css"
 
-export default function MatchListItem() {
+export default function MatchListItem({ match_time, team_level, field_name, match_format, teams }: Match) {
+  const { team_name, emblem_url } = teams
   return (
     <article className={mathItemlayout}>
       <div className={matchItemInfo}>
-        <span className={matchItemTime}>18:00</span>
-        <Badge className={matchItemBadge}>아마추어</Badge>
+        <span className={matchItemTime}>{match_time}</span>
+        <Badge className={matchItemBadge}>{team_level}</Badge>
       </div>
       <div className={matchItemRight}>
-        <h3 className={matchItemTitle}>위너스 매치 구합니다.</h3>
+        <h3 className={matchItemTitle}>{field_name}</h3>
         <ul className={matchItemTag}>
-          <li className={matchItemTagItem}>천안 위너스</li>
-          <li className={matchItemTagItem}>천안FB</li>
-          <li className={matchItemTagItem}>5vs5</li>
+          <li className={matchItemTagItem}>
+            <div className={matchItemTagItemImage}>
+              <img src={emblem_url} alt="팀 로고" width={16} height={16} />
+            </div>
+            <span>{team_name}</span>
+          </li>
+          <li className={matchItemTagItem}>{match_format}</li>
         </ul>
       </div>
     </article>

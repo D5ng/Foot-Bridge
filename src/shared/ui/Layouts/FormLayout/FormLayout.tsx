@@ -8,33 +8,33 @@ import {
   formLayoutRoot,
 } from "./FormLayout.css"
 
-function FormLayoutButtonLayout({ children, ...restProps }: HTMLAttributes<HTMLDivElement>) {
+function FormLayoutButtonLayout({ children, className, ...restProps }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={formLayoutButtonLayout} {...restProps}>
+    <div className={clsx(formLayoutButtonLayout, className)} {...restProps}>
       {children}
     </div>
   )
 }
 
-function FormLayoutHeader({ children, ...restProps }: HTMLAttributes<HTMLDivElement>) {
+function FormLayoutHeader({ children, className, ...restProps }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={formLayoutHeader} {...restProps}>
+    <div className={clsx(formLayoutHeader, className)} {...restProps}>
       {children}
     </div>
   )
 }
 
-function FormLayoutHeaderTitle({ children, ...restProps }: HTMLAttributes<HTMLHeadingElement>) {
+function FormLayoutHeaderTitle({ children, className, ...restProps }: HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h2 className={formLayoutHeaderTitle} {...restProps}>
+    <h2 className={clsx(formLayoutHeaderTitle, className)} {...restProps}>
       {children}
     </h2>
   )
 }
 
-function FormLayoutHeaderDescription({ children, ...restProps }: HTMLAttributes<HTMLParagraphElement>) {
+function FormLayoutHeaderDescription({ children, className, ...restProps }: HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p className={formLayoutHeaderDescription} {...restProps}>
+    <p className={clsx(formLayoutHeaderDescription, className)} {...restProps}>
       {children}
     </p>
   )

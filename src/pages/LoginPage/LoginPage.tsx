@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router"
-import { signInWithKakao } from "@/shared/api/auth"
+import { signInWithKakao } from "@/shared/apis/auth"
 import { useAuthStore } from "@/shared/stores/authStore"
 import { KakaoLogoIcon } from "@/shared/assets/images"
 import { loginPageButton, loginPageButtonIcon, loginPageDesc, loginPageTitle, loginPageWrapper } from "./LoginPage.css"

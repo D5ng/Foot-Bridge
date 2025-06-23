@@ -7,13 +7,13 @@ import {
   FormLayoutHeader,
   FormLayoutHeaderTitle,
 } from "@/shared/ui/Layouts/FormLayout/FormLayout"
-import { Button, Input, Label, ErrorMessage } from "@/shared/ui"
+import { Button, Label, ErrorMessage, Textarea } from "@/shared/ui"
+import { teamIntroFormSchema } from "@/features/createTeam/models"
+import type { TeamIntroContext } from "@/features/createTeam/models/types"
 import { teamIntroStepInputWrapper } from "./TeamIntroStep.css"
-import { introFormSchema } from "../form.schema"
-import type { IntroContext } from "../form.type"
 
 interface Props {
-  onNext: (context: IntroContext) => void
+  onNext: (context: TeamIntroContext) => void
   onBack: () => void
 }
 
@@ -22,12 +22,12 @@ export default function TeamIntroStep({ onNext, onBack }: Props) {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<IntroContext>({
-    resolver: zodResolver(introFormSchema),
+  } = useForm<TeamIntroContext>({
+    resolver: zodResolver(teamIntroFormSchema),
     mode: "onTouched",
   })
 
-  const onSubmit = (data: IntroContext) => {
+  const onSubmit = (data: TeamIntroContext) => {
     onNext(data)
   }
 
@@ -45,8 +45,8 @@ export default function TeamIntroStep({ onNext, onBack }: Props) {
             </FormLayoutHeader>
 
             <div className={teamIntroStepInputWrapper}>
-              <Label>팀 소개</Label>
-              <Input placeholder="팀 소개를 입력해 주세요." {...register("teamIntro")} />
+              <Label htmlFor="teamIntro">팀 소개</Label>
+              <Textarea id="teamIntro" placeholder="팀 소개를 입력해 주세요." {...register("teamIntro")} />
               <ErrorMessage errors={errors} name="teamIntro" />
             </div>
 

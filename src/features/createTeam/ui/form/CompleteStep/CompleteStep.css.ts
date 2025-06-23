@@ -24,6 +24,18 @@ export const completeInfoItem = style({
   ...typography.body.md,
 })
 
+export const completeInfoItemValueListWrapper = style({
+  display: "flex",
+  justifyContent: "space-between",
+  ...typography.body.md,
+})
+
+export const completeInfoItemValueList = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: spacing[1],
+})
+
 export const completeInfoItemLabel = style({
   width: "30%",
 })

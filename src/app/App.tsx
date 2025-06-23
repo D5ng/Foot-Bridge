@@ -1,11 +1,10 @@
 import { useEffect } from "react"
-import { createBrowserRouter, RouterProvider } from "react-router"
+import { RouterProvider } from "react-router"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { useAuthStore } from "@/shared/stores/authStore"
 import { queryClient } from "@/shared/lib"
-import { CreateTeamPage, LoginPage, MatchListPage, MyPage } from "../pages"
 import "./styles/global.css"
-import ProtectedRoute from "./providers/ProtectedRoute"
+import { router } from "./routes"
 
 export default function App() {
   const { initialize } = useAuthStore()
@@ -13,33 +12,6 @@ export default function App() {
   useEffect(() => {
     initialize()
   }, [initialize])
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      Component: MatchListPage,
-    },
-    {
-      path: "/login",
-      Component: LoginPage,
-    },
-    {
-      path: "/my",
-      Component: () => (
-        <ProtectedRoute fallback={<div>Loading...</div>}>
-          <MyPage />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/create-team",
-      Component: () => (
-        <ProtectedRoute fallback={<div>Loading...</div>}>
-          <CreateTeamPage />
-        </ProtectedRoute>
-      ),
-    },
-  ])
 
   return (
     <QueryClientProvider client={queryClient}>
