@@ -17,11 +17,7 @@ import {
 } from "@/shared/ui"
 import { completeAnimation, completeInfoNotice } from "./CompleteStep.css"
 
-interface Props {
-  onBack?: () => void
-}
-
-export default function CompleteStep({ onBack }: Props) {
+export default function CompleteStep() {
   return (
     <>
       <NavigationBar>
