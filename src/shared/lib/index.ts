@@ -6,3 +6,4 @@ export { queryClient } from "./queryClient"
 // Supabase
 export * from "./supabase/supabase"
 export * from "./supabase/storage"
+export * from "./supabase/types"
