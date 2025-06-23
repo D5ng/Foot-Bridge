@@ -1,6 +1,6 @@
-import type { CreateTeamSchema } from "../models/types"
+import type { CreateTeamPayload } from "@/entities/team"
 
-export function transformCreateTeamToDto(data: CreateTeamSchema & { owner_id: string }) {
+export function transformCreateTeamToDto(data: CreateTeamPayload & { owner_id: string }) {
   return {
     team_name: data.teamName,
     team_leader_name: data.teamLeaderName,
