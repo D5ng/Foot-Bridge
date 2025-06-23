@@ -1,3 +1,5 @@
+import { ErrorBoundary } from "react-error-boundary"
+import { Suspense } from "react"
 import { MatchListBanner, MatchList, CreateMatchButton } from "@/features/matchList/ui"
 import { Header, MonthlyCalendar } from "@/shared/ui"
 
@@ -9,7 +11,11 @@ export default function MatchListPage() {
         <MatchListBanner />
         <MonthlyCalendar />
         <CreateMatchButton />
-        <MatchList />
+        <ErrorBoundary fallback={<div>Error</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <MatchList />
+          </Suspense>
+        </ErrorBoundary>
       </main>
     </>
   )
