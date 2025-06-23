@@ -14,18 +14,18 @@ import {
   SelectableListItemIcon,
   SelectableListItemLabel,
 } from "@/shared/ui"
-import { MATCH_TIMES_OPTIONS } from "../form.constants"
-import type { MatchTimeContext, MatchTimeOption } from "../form.type"
-import { matchTimeFormSchema } from "../form.schema"
+import { teamActivityTimeFormSchema } from "@/features/createTeam/models"
+import type { TeamActivityTimeContext, MatchTimeOption } from "@/features/createTeam/models/types"
+import { MATCH_TIMES_OPTIONS } from "@/entities/team"
 
 interface Props {
-  onNext: (context: MatchTimeContext) => void
+  onNext: (context: TeamActivityTimeContext) => void
   onBack: () => void
 }
 
-export default function MatchTimeStep({ onNext, onBack }: Props) {
-  const { setValue, watch, handleSubmit } = useForm<MatchTimeContext>({
-    resolver: zodResolver(matchTimeFormSchema),
+export default function TeamActivityTimeStep({ onNext, onBack }: Props) {
+  const { setValue, watch, handleSubmit } = useForm<TeamActivityTimeContext>({
+    resolver: zodResolver(teamActivityTimeFormSchema),
     mode: "onTouched",
   })
 
@@ -35,7 +35,7 @@ export default function MatchTimeStep({ onNext, onBack }: Props) {
     setValue("matchTime", selectedMatchTimeOptions, { shouldValidate: true })
   }
 
-  const onSubmit = (data: MatchTimeContext) => {
+  const onSubmit = (data: TeamActivityTimeContext) => {
     onNext(data)
   }
 

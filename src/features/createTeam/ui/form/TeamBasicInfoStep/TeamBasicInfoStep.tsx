@@ -11,26 +11,26 @@ import {
   ErrorMessage,
 } from "@/shared/ui"
 import { NavigationBar, NavigationBarBackButton, NavigationBarTitle } from "@/shared/ui/NavigationBar/NavigationBar"
-import { basicInfoForm } from "./BasicInfoStep.css"
-import { basicInfoFormSchema } from "../form.schema"
-import type { BasicInfoContext } from "../form.type"
+import { teamBasicInfoFormSchema } from "@/features/createTeam/models"
+import type { TeamBasicInfoContext } from "@/features/createTeam/models/types"
+import { basicInfoForm } from "./TeamBasicInfoStep.css"
 
 interface Props {
-  onNext: (context: BasicInfoContext) => void
+  onNext: (context: TeamBasicInfoContext) => void
   onBack: () => void
 }
 
-export default function BasicInfoStep({ onNext, onBack }: Props) {
+export default function TeamBasicInfoStep({ onNext, onBack }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<BasicInfoContext>({
-    resolver: zodResolver(basicInfoFormSchema),
+  } = useForm<TeamBasicInfoContext>({
+    resolver: zodResolver(teamBasicInfoFormSchema),
     mode: "onTouched",
   })
 
-  const onSubmit = (data: BasicInfoContext) => {
+  const onSubmit = (data: TeamBasicInfoContext) => {
     onNext(data)
   }
 

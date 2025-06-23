@@ -11,24 +11,24 @@ import {
   ErrorMessage,
 } from "@/shared/ui"
 import { NavigationBar, NavigationBarBackButton, NavigationBarTitle } from "@/shared/ui/NavigationBar/NavigationBar"
-import { selectDaysFormBadgeLayout } from "./SelectDaysStep.css"
-import type { ActivityDaysContext, Day } from "../form.type"
-import { DAYS } from "../form.constants"
-import { activityDaysFormSchema } from "../form.schema"
+import { teamActivityDaysFormSchema } from "@/features/createTeam/models"
+import type { TeamActivityDaysContext, Day } from "@/features/createTeam/models/types"
+import { DAYS } from "@/entities/team"
+import { selectDaysFormBadgeLayout } from "./TeamActivityDaysStep.css"
 
 interface Props {
-  onNext: (context: ActivityDaysContext) => void
+  onNext: (context: TeamActivityDaysContext) => void
   onBack: () => void
 }
 
-export default function SelectDaysStep({ onNext, onBack }: Props) {
+export default function TeamActivityDaysStep({ onNext, onBack }: Props) {
   const {
     setValue,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<ActivityDaysContext>({
-    resolver: zodResolver(activityDaysFormSchema),
+  } = useForm<TeamActivityDaysContext>({
+    resolver: zodResolver(teamActivityDaysFormSchema),
     mode: "onTouched",
   })
 
@@ -42,7 +42,7 @@ export default function SelectDaysStep({ onNext, onBack }: Props) {
     setValue("teamActivityDays", updatedActivityDays, { shouldValidate: true })
   }
 
-  const onSubmit = (data: ActivityDaysContext) => {
+  const onSubmit = (data: TeamActivityDaysContext) => {
     onNext(data)
   }
 

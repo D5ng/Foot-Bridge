@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 import { Badge, Button, NavigationBar, NavigationBarTitle } from "@/shared/ui"
 import {
   FormLayoutRoot,
@@ -6,6 +7,9 @@ import {
   FormLayoutButtonLayout,
 } from "@/shared/ui/Layouts/FormLayout/FormLayout"
 import { formatPhoneNumber } from "@/shared/utils"
+import type { FormFieldKey } from "@/features/createTeam/models/types"
+import { FORM_FIELD_MAPPING } from "@/features/createTeam/consts"
+import type { CreateTeamPayload } from "@/entities/team"
 import {
   completeEmblemWrapper,
   completeInfoList,
@@ -13,12 +17,12 @@ import {
   completeInfoItemLabel,
   completeInfoItemValue,
   completeInfoNotice,
+  completeInfoItemValueList,
+  completeInfoItemValueListWrapper,
 } from "./CompleteStep.css"
-import type { CompleteContext, FormFieldKey } from "../form.type"
-import { FORM_FIELD_MAPPING } from "../form.constants"
 
 interface Props {
-  data: CompleteContext
+  data: CreateTeamPayload
 }
 
 export default function CompleteStep({ data }: Props) {
@@ -53,6 +57,22 @@ export default function CompleteStep({ data }: Props) {
                     <li className={completeInfoItem} key={key}>
                       <span className={completeInfoItemLabel}>{FORM_FIELD_MAPPING[key]}</span>
                       <div className={completeInfoItemValue}>{formatPhoneNumber(value)}</div>
+                    </li>
+                  )
+                }
+
+                if (key === "matchTime") {
+                  return (
+                    <li className={value.length === 0 ? completeInfoItem : completeInfoItemValueListWrapper} key={key}>
+                      <span className={completeInfoItemLabel}>{FORM_FIELD_MAPPING[key]}</span>
+                      {value.length === 0 && <div className={completeInfoItemValue}>{value.join(", ")}</div>}
+                      {value.length > 0 && (
+                        <ul className={completeInfoItemValueList}>
+                          {value.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      )}
                     </li>
                   )
                 }
@@ -94,9 +114,11 @@ export default function CompleteStep({ data }: Props) {
           </div>
 
           <FormLayoutButtonLayout>
-            <Button type="submit">매치 등록하러 가기</Button>
-            <Button variant="terciary" type="button">
-              마이페이지로 이동하기
+            <Button type="button" asChild>
+              <Link to="/create-match">매치 등록하러 가기</Link>
+            </Button>
+            <Button variant="terciary" type="button" asChild>
+              <Link to="/my">마이페이지로 이동하기</Link>
             </Button>
           </FormLayoutButtonLayout>
         </FormLayoutRoot>

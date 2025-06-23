@@ -11,24 +11,24 @@ import {
   Button,
   ErrorMessage,
 } from "@/shared/ui"
-import type { AverageAgeContext, AverageAgeOption } from "../form.type"
-import { AVERAGE_AGE_OPTIONS } from "../form.constants"
-import { averageAgeFormBadgeLayout } from "./AverageAgeStep.css"
-import { averageAgeFormSchema } from "../form.schema"
+import { teamAverageAgeFormSchema } from "@/features/createTeam/models"
+import type { TeamAverageAgeContext, AverageAgeOption } from "@/features/createTeam/models/types"
+import { AVERAGE_AGE_OPTIONS } from "@/entities/team"
+import { averageAgeFormBadgeLayout } from "./TeamAverageAgeStep.css"
 
 interface Props {
-  onNext: (context: AverageAgeContext) => void
+  onNext: (context: TeamAverageAgeContext) => void
   onBack: () => void
 }
 
-export default function AverageAgeStep({ onNext, onBack }: Props) {
+export default function TeamAverageAgeStep({ onNext, onBack }: Props) {
   const {
     setValue,
     watch,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<AverageAgeContext>({
-    resolver: zodResolver(averageAgeFormSchema),
+  } = useForm<TeamAverageAgeContext>({
+    resolver: zodResolver(teamAverageAgeFormSchema),
     mode: "onTouched",
   })
 
@@ -38,7 +38,7 @@ export default function AverageAgeStep({ onNext, onBack }: Props) {
     setValue("averageAge", age, { shouldValidate: true })
   }
 
-  const onSubmit = (data: AverageAgeContext) => {
+  const onSubmit = (data: TeamAverageAgeContext) => {
     onNext(data)
   }
 

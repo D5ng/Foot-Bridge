@@ -14,38 +14,38 @@ import {
   SegmentedContent,
   SegmentedControlWrapper,
 } from "@/shared/ui"
-import { SKILL_LEVEL_OPTIONS, SKILL_LEVEL_OPTIONS_DESCRIPTION } from "../form.constants"
-import type { SkillLevelContext, SkillLevelOption } from "../form.type"
+import type { TeamLevelContext, SkillLevelOption } from "@/features/createTeam/models/types"
+import { teamLevelFormSchema } from "@/features/createTeam/models"
+import { TEAM_LEVEL_OPTIONS, TEAM_LEVEL_OPTIONS_DESCRIPTION } from "@/entities/team"
 import {
   skillLevelStepDescription,
   skillLevelStepDetailItem,
   skillLevelStepDetailItemLabel,
   skillLevelStepDetailItemValue,
   skillLevelStepDetails,
-} from "./SkillLevelStep.css"
-import { skillLevelFormSchema } from "../form.schema"
+} from "./TeamLevelStep.css"
 
 interface Props {
-  onNext: (context: SkillLevelContext) => void
+  onNext: (context: TeamLevelContext) => void
   onBack: () => void
 }
 
-export default function SkillLevelStep({ onNext, onBack }: Props) {
-  const { setValue, handleSubmit, watch } = useForm<SkillLevelContext>({
+export default function TeamLevelStep({ onNext, onBack }: Props) {
+  const { setValue, handleSubmit, watch } = useForm<TeamLevelContext>({
     defaultValues: {
-      skillLevel: SKILL_LEVEL_OPTIONS[0],
+      teamLevel: TEAM_LEVEL_OPTIONS[0],
     },
-    resolver: zodResolver(skillLevelFormSchema),
+    resolver: zodResolver(teamLevelFormSchema),
     mode: "onTouched",
   })
 
-  const skillLevel = watch("skillLevel") || []
+  const teamLevel = watch("teamLevel") || []
 
-  const toggleSkillLevel = (skillLevel: SkillLevelOption) => {
-    setValue("skillLevel", skillLevel, { shouldValidate: true })
+  const toggleTeamLevel = (teamLevel: SkillLevelOption) => {
+    setValue("teamLevel", teamLevel, { shouldValidate: true })
   }
 
-  const onSubmit = (data: SkillLevelContext) => {
+  const onSubmit = (data: TeamLevelContext) => {
     onNext(data)
   }
 
@@ -63,20 +63,20 @@ export default function SkillLevelStep({ onNext, onBack }: Props) {
               <FormLayoutHeaderDescription>대략적인 연령대를 선택해 주세요.</FormLayoutHeaderDescription>
             </FormLayoutHeader>
 
-            <SegmentedControl defaultValue={SKILL_LEVEL_OPTIONS[0]} onValueChange={toggleSkillLevel}>
+            <SegmentedControl defaultValue={TEAM_LEVEL_OPTIONS[0]} onValueChange={toggleTeamLevel}>
               <SegmentedControlWrapper>
                 <SegmentedControlList>
-                  {SKILL_LEVEL_OPTIONS.map((item) => (
+                  {TEAM_LEVEL_OPTIONS.map((item) => (
                     <SegmentedControlOption key={item} value={item}>
                       {item}
                     </SegmentedControlOption>
                   ))}
                 </SegmentedControlList>
               </SegmentedControlWrapper>
-              <SegmentedContent value={skillLevel}>
-                <p className={skillLevelStepDescription}>{SKILL_LEVEL_OPTIONS_DESCRIPTION[skillLevel].description}</p>
+              <SegmentedContent value={teamLevel}>
+                <p className={skillLevelStepDescription}>{TEAM_LEVEL_OPTIONS_DESCRIPTION[teamLevel].description}</p>
                 <ul className={skillLevelStepDetails}>
-                  {Object.entries(SKILL_LEVEL_OPTIONS_DESCRIPTION[skillLevel].details).map(([key, value]) => (
+                  {Object.entries(TEAM_LEVEL_OPTIONS_DESCRIPTION[teamLevel].details).map(([key, value]) => (
                     <li key={key} className={skillLevelStepDetailItem}>
                       <div className={skillLevelStepDetailItemLabel}>{key}</div>
                       <div className={skillLevelStepDetailItemValue}>{value}</div>
@@ -87,7 +87,7 @@ export default function SkillLevelStep({ onNext, onBack }: Props) {
             </SegmentedControl>
 
             <FormLayoutButtonLayout>
-              <Button type="submit" disabled={skillLevel.length === 0}>
+              <Button type="submit" disabled={teamLevel.length === 0}>
                 다음
               </Button>
               <Button variant="terciary" type="button" onClick={onBack}>
