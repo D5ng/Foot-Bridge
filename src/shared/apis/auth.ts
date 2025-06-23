@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import { supabase } from "../lib/supabase/supabase"
+import { supabaseClient } from "../lib"
 
 export async function signInWithKakao() {
   try {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
       provider: "kakao",
       options: {
         redirectTo: import.meta.env.VITE_KAKAO_CALLBACK_URL,
@@ -23,7 +23,7 @@ export async function signInWithKakao() {
 
 export async function signOut() {
   try {
-    const { error } = await supabase.auth.signOut()
+    const { error } = await supabaseClient.auth.signOut()
 
     if (error) {
       throw error
@@ -39,7 +39,7 @@ export async function getSession() {
     const {
       data: { session },
       error,
-    } = await supabase.auth.getSession()
+    } = await supabaseClient.auth.getSession()
 
     if (error) {
       throw error
