@@ -1,5 +1,5 @@
 import { createBrowserRouter, type RouteObject } from "react-router"
-import { MatchListPage, LoginPage, MyPage, CreateTeamPage, CreateMatchPage, MatchDetailPage } from "../pages"
+import { MatchListPage, LoginPage, MyPage, CreateTeamPage, CreateMatchPage } from "../pages"
 import ProtectedRoute from "./providers/ProtectedRoute"
 
 /** 인증이 필요한 라우트 */
@@ -27,10 +27,6 @@ const publicRoutes: RouteObject[] = [
   {
     path: "/login",
     Component: LoginPage,
-  },
-  {
-    path: "/match/:matchId",
-    Component: MatchDetailPage,
   },
 ]
 
