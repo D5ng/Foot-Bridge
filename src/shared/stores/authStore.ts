@@ -3,7 +3,8 @@
 import { create } from "zustand"
 import { devtools } from "zustand/middleware"
 import type { User, Session } from "@supabase/supabase-js"
-import { supabase } from "@/shared/lib"
+import { supabaseClient } from "../lib"
+
 
 interface AuthState {
   user: User | null
@@ -60,7 +61,7 @@ export const useAuthStore = create<AuthState>()(
             const {
               data: { session },
               error,
-            } = await supabase.auth.getSession()
+            } = await supabaseClient.auth.getSession()
 
             if (error) {
               console.error("Error getting session:", error)
@@ -75,7 +76,7 @@ export const useAuthStore = create<AuthState>()(
             })
 
             // 인증 상태 변화 구독 (한 번만)
-            supabase.auth.onAuthStateChange((_event, session) => {
+            supabaseClient.auth.onAuthStateChange((_event, session) => {
               set((prev) => {
                 const sameUser = prev.user?.id === session?.user?.id
                 const sameToken = prev.session?.access_token === session?.access_token
@@ -107,7 +108,7 @@ export const useAuthStore = create<AuthState>()(
 
         signOut: async () => {
           try {
-            const { error } = await supabase.auth.signOut()
+            const { error } = await supabaseClient.auth.signOut()
             if (error) {
               console.error("Sign out error:", error)
               throw error
