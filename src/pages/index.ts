@@ -9,5 +9,5 @@ export { default as CreateTeamPage } from "./CreateTeamPage/CreateTeamPage"
 
 /** Match */
 export { default as MatchListPage } from "./MatchListPage/MatchListPage"
-// export { default as MatchDetailPage } from "./MatchDetailPage/MatchDetailPage"
+export { default as MatchDetailPage } from "./MatchDetailPage/MatchDetailPage"
 export { default as CreateMatchPage } from "./CreateMatchPage/CreateMatchPage"
