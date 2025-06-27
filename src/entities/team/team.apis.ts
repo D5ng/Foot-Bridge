@@ -6,10 +6,6 @@ export async function createTeam(team: CreateTeamDto): Promise<Team | null> {
 }
 
 export async function fetchTeamByOwnerId(userId: string): Promise<Team | null> {
-  if (userId === "") {
-    return null
-  }
-
   return (await supabaseClient.from("teams").select("*").eq("owner_id", userId).single()).data
 }
 
