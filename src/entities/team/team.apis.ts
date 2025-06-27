@@ -6,7 +6,7 @@ export async function createTeam(team: CreateTeamDto): Promise<Team | null> {
 }
 
 export async function fetchTeamByOwnerId(userId: string): Promise<Team | null> {
-  return (await supabaseClient.from("teams").select("*").eq("owner_id", userId).single()).data
+  return (await supabaseClient.from("teams").select("*").eq("owner_id", userId).maybeSingle()).data
 }
 
 export async function uploadEmblem(file: File, teamId: string) {

@@ -1,3 +1,5 @@
 export { default as CreateTeamFunnel } from "./form/CreateTeamFunnel"
 export { default as CreateTeamGuard } from "./guard/CreateTeamGuard"
-export { default as CreateTeamErrorFallback } from "./ErrorFallback/CreateTeamErrorFallback"
+export { default as TeamExistsFallback } from "./ErrorFallback/TeamExistsFallback"
+export { default as CreateTeamSkeleton } from "./skeleton/CreateTeamSkeleton"
+export { default as TeamCreationErrorFallback } from "./ErrorFallback/TeamCreationErrorFallback"

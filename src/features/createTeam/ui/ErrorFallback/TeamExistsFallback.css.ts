@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css"
 import { colorVars, spacing } from "@/shared/tokens"
 
-export const createTeamErrorFallbackContainer = style({
+export const teamExistsFallbackContainer = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -9,7 +9,7 @@ export const createTeamErrorFallbackContainer = style({
   margin: `0 ${spacing[4]}`,
 })
 
-export const createTeamErrorFallbackSection = style({
+export const teamExistsFallbackSection = style({
   display: "flex",
   flexDirection: "column",
   textAlign: "center",
@@ -19,15 +19,15 @@ export const createTeamErrorFallbackSection = style({
   borderRadius: spacing[4],
 })
 
-export const createTeamErrorFallbackLottieWrapper = style({
+export const teamExistsFallbackLottieWrapper = style({
   width: "80%",
   margin: "0 auto",
 })
 
-export const createTeamErrorFallbackButtonWrapper = style({
+export const teamExistsFallbackButtonWrapper = style({
   paddingTop: spacing[4],
 })
 
-export const createTeamErrorFallbackButton = style({
+export const teamExistsFallbackButton = style({
   height: spacing[10],
 })
