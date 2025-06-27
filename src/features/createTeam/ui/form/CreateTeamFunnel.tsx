@@ -52,7 +52,7 @@ export default function CreateTeamFunnel() {
       const createTeamData = await mutateAsync(teamData)
 
       if (!createTeamData) {
-        throw new Error("팀 생성에 실패했어요.")
+        throw new Error("팀 등록 중 문제가 발생했어요")
       }
     } catch (error) {
       const err = error as Error
