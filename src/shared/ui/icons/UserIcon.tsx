@@ -1,7 +1,8 @@
+import { colorVars } from "@/shared/tokens"
 import type { IconProps } from "./types"
 
 export default function UserIcon({
-  color = "currentColor",
+  color = colorVars.highlight[500],
   size = 16,
   className,
   decorative = false,

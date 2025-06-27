@@ -4,6 +4,7 @@ import { spacing } from "@/shared/tokens"
 //  Swiper Container Class
 export const swiperContainer = style({
   padding: spacing[4],
+  overflow: "hidden",
 })
 
 // Swiper Wrapper Class

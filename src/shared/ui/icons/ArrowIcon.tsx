@@ -1,9 +1,10 @@
 import { clsx } from "clsx"
+import { colorVars } from "@/shared/tokens"
 import type { ArrowIconProps } from "./types"
 import { arrowIcon } from "./ArrowIcon.css"
 
 export default function ArrowIcon({
-  color = "currentColor",
+  color = colorVars.highlight[500],
   size = 16,
   className,
   decorative = false,

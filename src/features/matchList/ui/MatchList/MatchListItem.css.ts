@@ -38,6 +38,9 @@ export const matchItemTag = style({
 
 export const matchItemTagItem = style({
   position: "relative",
+  display: "flex",
+  alignItems: "center",
+  gap: spacing[1],
   selectors: {
     "&:not(:last-child)::after": {
       content: "•",
@@ -51,4 +54,9 @@ export const matchItemRight = style({
   display: "flex",
   flexDirection: "column",
   gap: spacing[1],
+})
+
+export const matchItemTagItemImage = style({
+  width: "16px",
+  height: "16px",
 })
