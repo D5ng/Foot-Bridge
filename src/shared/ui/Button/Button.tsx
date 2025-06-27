@@ -8,7 +8,6 @@ export type ButtonVariants = NonNullable<RecipeVariants<typeof button>>
 
 interface Props<T> extends ButtonHTMLAttributes<T>, ButtonVariants {
   asChild?: boolean
-  isLoading?: boolean
 }
 
 export default function Button<T extends HTMLButtonElement = HTMLButtonElement>({
@@ -16,13 +15,12 @@ export default function Button<T extends HTMLButtonElement = HTMLButtonElement>(
   asChild,
   className,
   variant = "primary",
-  isLoading = false,
   ...restProps
 }: Props<T>) {
   const Element = asChild ? Slot : "button"
   return (
     <Element className={clsx(button({ variant }), className)} {...restProps}>
-      <Slottable>{isLoading ? "Loading..." : children}</Slottable>
+      <Slottable>{children}</Slottable>
     </Element>
   )
 }

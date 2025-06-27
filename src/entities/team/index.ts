@@ -1,6 +1,0 @@
-export * from "./team.apis"
-export * from "./team.consts"
-export * from "./team.types"
-export * from "./team.schemas"
-export * from "./team.queryKeys"
-export * from "./team.hooks"

@@ -40,5 +40,4 @@ export const colorVars = createGlobalTheme(":root", {
     300: "#FF616D",
     500: "#ED3241",
   },
-  overlay: "rgba(0, 0, 0, 0.5)",
 })
