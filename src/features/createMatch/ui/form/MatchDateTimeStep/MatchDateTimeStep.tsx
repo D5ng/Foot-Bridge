@@ -48,7 +48,7 @@ export default function MatchDateTimeStep({ onNext, onBack }: Props) {
     mode: "onTouched",
   })
 
-  const { matchTime: selectedMatchTime, matchDate } = watch()
+  const { matchTime: selectedMatchTime } = watch()
 
   const handleSelectMatchDate = useCallback(
     (date: Date) => {
@@ -79,12 +79,7 @@ export default function MatchDateTimeStep({ onNext, onBack }: Props) {
         <NavigationBarTitle>매치 등록하기</NavigationBarTitle>
       </NavigationBar>
       <main>
-        <form
-          onSubmit={handleSubmit(onSubmit, (error) => {
-            console.log(error)
-            throw error
-          })}
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormLayoutRoot className={createMatchFormLayout}>
             <FormLayoutHeader>
               <FormLayoutHeaderTitle>어디서 경기를 진행할까요?</FormLayoutHeaderTitle>
