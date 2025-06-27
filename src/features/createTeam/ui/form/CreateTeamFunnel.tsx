@@ -1,4 +1,5 @@
 import { useFunnel } from "@use-funnel/react-router"
+import { useNavigate } from "react-router"
 import { useAuthStore } from "@/shared/stores/authStore"
 import type { CreateTeamPayload } from "@/entities/team"
 import {
@@ -25,6 +26,7 @@ import { useCreateTeam } from "../../models/useCreateTeam.mutate"
 export default function CreateTeamFunnel() {
   const { user } = useAuthStore()
   const { mutateAsync, isPending } = useCreateTeam()
+  const navigate = useNavigate()
 
   const funnel = useFunnel({
     id: "create-team",
@@ -60,48 +62,57 @@ export default function CreateTeamFunnel() {
 
   return (
     <funnel.Render
-      teamBasicInfo={({ history }) => {
+      teamBasicInfo={({ history, context }) => {
         return (
-          <TeamBasicInfoStep onNext={(data) => history.push("teamActivityDays", { ...data })} onBack={history.back} />
+          <TeamBasicInfoStep
+            onNext={(data) => history.push("teamActivityDays", { ...data })}
+            onBack={() => navigate(-1)}
+            prevContext={context}
+          />
         )
       }}
-      teamActivityDays={({ history }) => {
+      teamActivityDays={({ history, context }) => {
         return (
           <TeamActivityDaysStep
             onNext={(data) => history.push("teamActivityTime", (prev) => ({ ...prev, ...data }))}
-            onBack={history.back}
+            onBack={() => history.push("teamBasicInfo", () => ({ ...context }))}
+            prevContext={context}
           />
         )
       }}
-      teamActivityTime={({ history }) => {
+      teamActivityTime={({ history, context }) => {
         return (
           <TeamActivityTimeStep
             onNext={(data) => history.push("teamAverageAge", (prev) => ({ ...prev, ...data }))}
-            onBack={history.back}
+            onBack={() => history.push("teamActivityDays", () => ({ ...context }))}
+            prevContext={context}
           />
         )
       }}
-      teamAverageAge={({ history }) => {
+      teamAverageAge={({ history, context }) => {
         return (
           <TeamAverageAgeStep
             onNext={(data) => history.push("teamLevel", (prev) => ({ ...prev, ...data }))}
-            onBack={history.back}
+            onBack={() => history.push("teamActivityTime", () => ({ ...context }))}
+            prevContext={context}
           />
         )
       }}
-      teamLevel={({ history }) => {
+      teamLevel={({ history, context }) => {
         return (
           <TeamLevelStep
             onNext={(data) => history.push("teamIntro", (prev) => ({ ...prev, ...data }))}
-            onBack={history.back}
+            onBack={() => history.push("teamAverageAge", () => ({ ...context }))}
+            prevContext={context}
           />
         )
       }}
-      teamIntro={({ history }) => {
+      teamIntro={({ history, context }) => {
         return (
           <TeamIntroStep
             onNext={(data) => history.push("teamUploadEmblem", (prev) => ({ ...prev, ...data }))}
-            onBack={history.back}
+            onBack={() => history.push("teamLevel", () => ({ ...context }))}
+            prevContext={context}
           />
         )
       }}
@@ -112,7 +123,8 @@ export default function CreateTeamFunnel() {
             await handleCreateTeamSubmit({ ...context, ...data })
             history.push("complete", { ...context, ...data })
           }}
-          onBack={history.back}
+          onBack={() => history.push("teamIntro", () => ({ ...context }))}
+          prevContext={context}
         />
       )}
       complete={({ context }) => {

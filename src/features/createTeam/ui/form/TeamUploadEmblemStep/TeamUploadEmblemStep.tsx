@@ -28,9 +28,10 @@ interface Props {
   isPending: boolean
   onNext: (context: TeamUploadEmblemContext) => void
   onBack: () => void
+  prevContext: Partial<TeamUploadEmblemContext>
 }
 
-export default function TeamUploadEmblemStep({ isPending, onNext, onBack }: Props) {
+export default function TeamUploadEmblemStep({ isPending, onNext, onBack, prevContext }: Props) {
   const { user } = useAuthStore()
   const {
     register,
@@ -42,6 +43,7 @@ export default function TeamUploadEmblemStep({ isPending, onNext, onBack }: Prop
     mode: "onTouched",
     defaultValues: {
       emblem: DEFAULT_EMBLEM_URL,
+      ...prevContext,
     },
   })
 

@@ -19,9 +19,10 @@ import { averageAgeFormBadgeLayout } from "./TeamAverageAgeStep.css"
 interface Props {
   onNext: (context: TeamAverageAgeContext) => void
   onBack: () => void
+  prevContext: Partial<TeamAverageAgeContext>
 }
 
-export default function TeamAverageAgeStep({ onNext, onBack }: Props) {
+export default function TeamAverageAgeStep({ onNext, onBack, prevContext }: Props) {
   const {
     setValue,
     watch,
@@ -30,6 +31,7 @@ export default function TeamAverageAgeStep({ onNext, onBack }: Props) {
   } = useForm<TeamAverageAgeContext>({
     resolver: zodResolver(teamAverageAgeFormSchema),
     mode: "onTouched",
+    defaultValues: prevContext,
   })
 
   const averageAgeOptions = watch("averageAge") || []

@@ -15,9 +15,10 @@ import { teamIntroStepInputWrapper } from "./TeamIntroStep.css"
 interface Props {
   onNext: (context: TeamIntroContext) => void
   onBack: () => void
+  prevContext: Partial<TeamIntroContext>
 }
 
-export default function TeamIntroStep({ onNext, onBack }: Props) {
+export default function TeamIntroStep({ onNext, onBack, prevContext }: Props) {
   const {
     register,
     handleSubmit,
@@ -25,6 +26,7 @@ export default function TeamIntroStep({ onNext, onBack }: Props) {
   } = useForm<TeamIntroContext>({
     resolver: zodResolver(teamIntroFormSchema),
     mode: "onTouched",
+    defaultValues: prevContext,
   })
 
   const onSubmit = (data: TeamIntroContext) => {

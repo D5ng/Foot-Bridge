@@ -28,12 +28,14 @@ import {
 interface Props {
   onNext: (context: TeamLevelContext) => void
   onBack: () => void
+  prevContext: Partial<TeamLevelContext>
 }
 
-export default function TeamLevelStep({ onNext, onBack }: Props) {
+export default function TeamLevelStep({ onNext, onBack, prevContext }: Props) {
   const { setValue, handleSubmit, watch } = useForm<TeamLevelContext>({
     defaultValues: {
       teamLevel: TEAM_LEVEL_OPTIONS[0],
+      ...prevContext,
     },
     resolver: zodResolver(teamLevelFormSchema),
     mode: "onTouched",
@@ -63,7 +65,10 @@ export default function TeamLevelStep({ onNext, onBack }: Props) {
               <FormLayoutHeaderDescription>대략적인 연령대를 선택해 주세요.</FormLayoutHeaderDescription>
             </FormLayoutHeader>
 
-            <SegmentedControl defaultValue={TEAM_LEVEL_OPTIONS[0]} onValueChange={toggleTeamLevel}>
+            <SegmentedControl
+              defaultValue={prevContext.teamLevel || TEAM_LEVEL_OPTIONS[0]}
+              onValueChange={toggleTeamLevel}
+            >
               <SegmentedControlWrapper>
                 <SegmentedControlList>
                   {TEAM_LEVEL_OPTIONS.map((item) => (
