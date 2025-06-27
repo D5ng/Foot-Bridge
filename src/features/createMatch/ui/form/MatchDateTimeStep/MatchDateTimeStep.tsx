@@ -48,9 +48,7 @@ export default function MatchDateTimeStep({ onNext, onBack }: Props) {
     mode: "onTouched",
   })
 
-  const { matchTime: selectedMatchTime, matchDate } = watch()
-
-  console.log(matchDate)
+  const { matchTime: selectedMatchTime } = watch()
 
   const handleSelectMatchDate = useCallback(
     (date: Date) => {

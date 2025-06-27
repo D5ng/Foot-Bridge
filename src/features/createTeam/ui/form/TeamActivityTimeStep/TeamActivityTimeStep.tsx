@@ -21,12 +21,14 @@ import { MATCH_TIMES_OPTIONS } from "@/entities/team"
 interface Props {
   onNext: (context: TeamActivityTimeContext) => void
   onBack: () => void
+  prevContext: Partial<TeamActivityTimeContext>
 }
 
-export default function TeamActivityTimeStep({ onNext, onBack }: Props) {
+export default function TeamActivityTimeStep({ onNext, onBack, prevContext }: Props) {
   const { setValue, watch, handleSubmit } = useForm<TeamActivityTimeContext>({
     resolver: zodResolver(teamActivityTimeFormSchema),
     mode: "onTouched",
+    defaultValues: prevContext,
   })
 
   const matchTimeOptions = watch("matchTime") || []
@@ -55,7 +57,7 @@ export default function TeamActivityTimeStep({ onNext, onBack }: Props) {
               </FormLayoutHeaderDescription>
             </FormLayoutHeader>
 
-            <SelectableList onValueChange={handleCheckedItems}>
+            <SelectableList defaultValues={matchTimeOptions} onValueChange={handleCheckedItems}>
               <SelectableListWrapper>
                 {MATCH_TIMES_OPTIONS.map((item) => (
                   <SelectableListItem key={item} value={item}>

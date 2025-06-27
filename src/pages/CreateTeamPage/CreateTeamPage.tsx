@@ -1,12 +1,12 @@
 import { Suspense } from "react"
 import { ErrorBoundary } from "react-error-boundary"
-import CreateTeamFunnel from "@/features/createTeam/ui/form/CreateTeamFunnel"
+import { CreateTeamErrorFallback, CreateTeamGuard } from "@/features/createTeam/ui"
 
 export default function CreateTeamPage() {
   return (
-    <ErrorBoundary fallback={<div>Error</div>}>
+    <ErrorBoundary fallback={<CreateTeamErrorFallback />}>
       <Suspense fallback={<div>Loading...</div>}>
-        <CreateTeamFunnel />
+        <CreateTeamGuard />
       </Suspense>
     </ErrorBoundary>
   )

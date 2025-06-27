@@ -19,9 +19,10 @@ import { selectDaysFormBadgeLayout } from "./TeamActivityDaysStep.css"
 interface Props {
   onNext: (context: TeamActivityDaysContext) => void
   onBack: () => void
+  prevContext: Partial<TeamActivityDaysContext>
 }
 
-export default function TeamActivityDaysStep({ onNext, onBack }: Props) {
+export default function TeamActivityDaysStep({ onNext, onBack, prevContext }: Props) {
   const {
     setValue,
     handleSubmit,
@@ -30,6 +31,7 @@ export default function TeamActivityDaysStep({ onNext, onBack }: Props) {
   } = useForm<TeamActivityDaysContext>({
     resolver: zodResolver(teamActivityDaysFormSchema),
     mode: "onTouched",
+    defaultValues: prevContext,
   })
 
   const activityDays = watch("teamActivityDays") || []

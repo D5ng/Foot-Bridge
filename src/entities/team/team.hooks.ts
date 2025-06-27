@@ -1,7 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { fetchTeamByOwnerId, teamKeys } from "@/entities/team"
+import { fetchTeamByOwnerId } from "./team.apis"
+import { teamKeys } from "./team.queryKeys"
 
-export function useFetchTeamByOwnerId(userId: string) {
+/** Query Hooks */
+export function useTeamByOwnerId(userId: string) {
   return useSuspenseQuery({
     queryKey: teamKeys.detail(userId),
     queryFn: () => fetchTeamByOwnerId(userId),

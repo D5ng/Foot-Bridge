@@ -1,6 +1,6 @@
 import { createBrowserRouter, type RouteObject } from "react-router"
+import AuthProtectedRoute from "@/app/providers/AuthProtectedRoute"
 import { MatchListPage, LoginPage, MyPage, CreateTeamPage, CreateMatchPage, MatchDetailPage } from "../pages"
-import ProtectedRoute from "./providers/ProtectedRoute"
 
 /** 인증이 필요한 라우트 */
 const protectedRoutes: RouteObject[] = [
@@ -41,9 +41,9 @@ const createProtectedRoute = (Component: RouteObject["Component"]) => {
   }
 
   return () => (
-    <ProtectedRoute fallback={<div>Loading...</div>}>
+    <AuthProtectedRoute fallback={<div>Loading...</div>}>
       <Component />
-    </ProtectedRoute>
+    </AuthProtectedRoute>
   )
 }
 

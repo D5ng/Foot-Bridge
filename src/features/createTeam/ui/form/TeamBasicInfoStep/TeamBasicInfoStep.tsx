@@ -18,9 +18,10 @@ import { basicInfoForm } from "./TeamBasicInfoStep.css"
 interface Props {
   onNext: (context: TeamBasicInfoContext) => void
   onBack: () => void
+  prevContext: Partial<TeamBasicInfoContext>
 }
 
-export default function TeamBasicInfoStep({ onNext, onBack }: Props) {
+export default function TeamBasicInfoStep({ onNext, onBack, prevContext }: Props) {
   const {
     register,
     handleSubmit,
@@ -28,6 +29,7 @@ export default function TeamBasicInfoStep({ onNext, onBack }: Props) {
   } = useForm<TeamBasicInfoContext>({
     resolver: zodResolver(teamBasicInfoFormSchema),
     mode: "onTouched",
+    defaultValues: prevContext,
   })
 
   const onSubmit = (data: TeamBasicInfoContext) => {
