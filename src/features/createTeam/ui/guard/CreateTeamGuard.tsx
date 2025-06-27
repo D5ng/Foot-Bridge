@@ -1,9 +1,8 @@
-import { Suspense } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import { useTeamByOwnerId } from "@/entities/team"
 import { useAuthStore } from "@/shared/stores/authStore"
+import TeamCreationErrorFallback from "../ErrorFallback/TeamCreationErrorFallback"
 import CreateTeamFunnel from "../form/CreateTeamFunnel"
-import CreateTeamSkeleton from "../skeleton/CreateTeamSkeleton"
 
 export default function CreateTeamGuard() {
   const { user } = useAuthStore()
@@ -14,10 +13,8 @@ export default function CreateTeamGuard() {
   }
 
   return (
-    <ErrorBoundary fallback={<div>Error</div>}>
-      <Suspense fallback={<CreateTeamSkeleton />}>
-        <CreateTeamFunnel />
-      </Suspense>
+    <ErrorBoundary fallback={<TeamCreationErrorFallback />}>
+      <CreateTeamFunnel />
     </ErrorBoundary>
   )
 }
