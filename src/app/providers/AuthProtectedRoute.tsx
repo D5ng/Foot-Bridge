@@ -7,7 +7,7 @@ interface Props extends PropsWithChildren {
   redirectTo?: string
 }
 
-export default function ProtectedRoute({ children, redirectTo = "/login", fallback }: Props) {
+export default function AuthProtectedRoute({ children, redirectTo = "/login", fallback }: Props) {
   const { isAuthenticated, isInitialized, isLoading } = useAuthStore()
   const navigate = useNavigate()
 
