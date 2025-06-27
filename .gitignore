@@ -26,11 +26,3 @@ dist-ssr
 .yarn
 *storybook.log
 storybook-static
-
-# Supabase
-.env
-.env.cli
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local

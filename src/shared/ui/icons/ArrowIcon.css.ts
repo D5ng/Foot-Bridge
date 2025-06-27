@@ -1,10 +1,7 @@
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes"
 
 export const arrowIcon = recipe({
-  base: {
-    display: "block",
-    transition: "transform 0.3s ease-in-out",
-  },
+  base: {},
   variants: {
     direction: {
       left: {
@@ -14,10 +11,10 @@ export const arrowIcon = recipe({
         transform: "rotate(0deg)",
       },
       up: {
-        transform: "rotate(270deg)",
+        transform: "rotate(90deg)",
       },
       down: {
-        transform: "rotate(90deg)",
+        transform: "rotate(270deg)",
       },
     },
   },

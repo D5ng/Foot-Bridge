@@ -1,5 +1,0 @@
-export * from "./match.types"
-export * from "./match.apis"
-export * from "./match.queryKeys"
-export * from "./match.shemas"
-export * from "./match.consts"
