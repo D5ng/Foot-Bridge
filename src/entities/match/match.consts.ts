@@ -26,3 +26,8 @@ export const FOOTBALL_FIELD_NAMES = [
 ] as const
 
 export const MATCH_FORMAT_OPTIONS = ["5:5", "6:6", "7:7"] as const
+
+export const REQUIRED_MODAL_TYPE = {
+  LOGIN: "LOGIN",
+  TEAM: "TEAM",
+} as const
