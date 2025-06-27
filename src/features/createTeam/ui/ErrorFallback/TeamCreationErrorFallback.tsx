@@ -16,7 +16,7 @@ import {
   teamCreationErrorFallbackLottieWrapper,
 } from "./TeamCreationErrorFallback.css"
 
-export default function TeamCreationErrorFallback() {
+export default function TeamCreationErrorFallback({ resetErrorBoundary }: { resetErrorBoundary: () => void }) {
   const navigate = useNavigate()
 
   return (
@@ -45,7 +45,9 @@ export default function TeamCreationErrorFallback() {
           </FormLayoutHeader>
 
           <FormLayoutButtonLayout>
-            <Button variant="primary">다시 시도</Button>
+            <Button variant="primary" onClick={resetErrorBoundary}>
+              다시 시도
+            </Button>
             <Button variant="terciary" onClick={() => navigate("/")}>
               홈으로 이동
             </Button>
