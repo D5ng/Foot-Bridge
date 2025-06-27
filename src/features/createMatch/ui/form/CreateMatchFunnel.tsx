@@ -1,13 +1,13 @@
 import { useFunnel } from "@use-funnel/react-router"
 import { useAuthStore } from "@/shared/stores/authStore"
 import type { CreateMatchPayload } from "@/entities/match"
+import { useTeamByOwnerId } from "@/entities/team"
 import {
   matchDateTimeStepSchema,
   matchFormatStepSchema,
   matchDescriptionStepSchema,
   matchCompleteStepSchema,
   useCreateMatchMutation,
-  useFetchTeamByOwnerId,
 } from "../../models"
 
 import MatchDateTimeStep from "./MatchDateTimeStep/MatchDateTimeStep"
@@ -18,11 +18,8 @@ import { transformCreateMatchToDto } from "../../lib"
 
 export default function CreateMatchFunnel() {
   const { user } = useAuthStore()
-  const { data: team } = useFetchTeamByOwnerId(user!.id)
-  const { mutateAsync, isPending, data: createMatchData } = useCreateMatchMutation()
-
-  // Todo: 현재 팀이 있는지 없는지를 파악해야함,
-  // Todo: 이걸 어떻게 파악하는게 좋지 ?
+  const { data: teamData } = useTeamByOwnerId(user!.id)
+  const { mutateAsync, isPending } = useCreateMatchMutation()
 
   const funnel = useFunnel({
     id: "create-match",
@@ -42,8 +39,8 @@ export default function CreateMatchFunnel() {
     try {
       const matchData = transformCreateMatchToDto({
         ...data,
-        teamId: team!.id,
-        teamLevel: team!.team_level,
+        teamId: teamData!.id,
+        teamLevel: teamData!.team_level,
       })
 
       const createMatchData = await mutateAsync(matchData)
@@ -85,7 +82,6 @@ export default function CreateMatchFunnel() {
         )
       }}
       complete={() => {
-        console.log(createMatchData)
         return <CompleteStep />
       }}
     />
