@@ -3,6 +3,48 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      match_requests: {
+        Row: {
+          applied_at: string | null
+          id: string
+          match_id: string
+          responded_at: string | null
+          status: string
+          team_id: string
+        }
+        Insert: {
+          applied_at?: string | null
+          id?: string
+          match_id: string
+          responded_at?: string | null
+          status?: string
+          team_id: string
+        }
+        Update: {
+          applied_at?: string | null
+          id?: string
+          match_id?: string
+          responded_at?: string | null
+          status?: string
+          team_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_requests_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "match_requests_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       matches: {
         Row: {
           created_at: string
@@ -11,9 +53,8 @@ export type Database = {
           id: string
           match_date: string
           match_format: string
-          match_time: string
+          match_time: string | null
           team_id: string
-          team_level: Database["public"]["Enums"]["team_level"]
         }
         Insert: {
           created_at?: string
@@ -22,9 +63,8 @@ export type Database = {
           id?: string
           match_date: string
           match_format: string
-          match_time: string
+          match_time?: string | null
           team_id: string
-          team_level: Database["public"]["Enums"]["team_level"]
         }
         Update: {
           created_at?: string
@@ -35,7 +75,6 @@ export type Database = {
           match_format?: string
           match_time?: string | null
           team_id?: string
-          team_level?: Database["public"]["Enums"]["team_level"]
         }
         Relationships: [
           {
