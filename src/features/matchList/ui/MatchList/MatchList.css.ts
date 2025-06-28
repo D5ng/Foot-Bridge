@@ -20,7 +20,6 @@ export const emptyMatchListText = style({
 })
 
 export const emptyMatchListButton = style({
-  // borderRadius: radius.full,
   height: spacing[10],
   width: "40%",
 })

@@ -1,10 +1,15 @@
+import clsx from "clsx"
 import { useCreateMatchFlow } from "@/features/matchList/models"
 import { Button } from "@/shared/ui"
 import { useToggle } from "@/shared/hooks"
 import { createMatchButton } from "./CreateMatchButton.css"
 import BaseRequiredModal from "../RequiredModal/BaseRequiredModal"
 
-export default function CreateMatchButton() {
+interface Props {
+  className?: string
+}
+
+export default function CreateMatchButton({ className }: Props) {
   const { isOpen, open, setOpen } = useToggle()
   const { modalType, handleProtectedFlow } = useCreateMatchFlow()
 
@@ -15,7 +20,7 @@ export default function CreateMatchButton() {
 
   return (
     <>
-      <Button className={createMatchButton} onClick={handleModalClick}>
+      <Button className={clsx(className || createMatchButton)} onClick={handleModalClick}>
         매치 등록하기
       </Button>
 
