@@ -6,7 +6,7 @@ export async function fetchMatchList(): Promise<Match[] | null> {
 }
 
 export async function createMatch(data: CreateMatchDto): Promise<CreateMatchDto | null> {
-  return (await supabaseClient.from("matches").insert(data).select().single()).data
+  return (await supabaseClient.from("matches").insert(data).select("*, teams(team_level)").single()).data
 }
 
 export async function fetchMatchDetail(matchId: string): Promise<Match | null> {
