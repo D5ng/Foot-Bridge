@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import { Badge, Button, NavigationBar, NavigationBarTitle } from "@/shared/ui"
+import { Button, NavigationBar, NavigationBarTitle } from "@/shared/ui"
 import {
   FormLayoutRoot,
   FormLayoutHeader,
@@ -7,9 +7,8 @@ import {
   FormLayoutButtonLayout,
 } from "@/shared/ui/Layouts/FormLayout/FormLayout"
 import { formatPhoneNumber } from "@/shared/utils"
-import type { FormFieldKey } from "@/features/createTeam/models/types"
-import { FORM_FIELD_MAPPING } from "@/features/createTeam/consts"
-import type { CreateTeamPayload, MATCH_TIMES_OPTIONS } from "@/entities/team"
+import { useTeamByOwnerId } from "@/entities/team"
+import { useAuthStore } from "@/shared/stores/authStore"
 import {
   completeEmblemWrapper,
   completeInfoList,
@@ -17,15 +16,16 @@ import {
   completeInfoItemLabel,
   completeInfoItemValue,
   completeInfoNotice,
-  completeInfoItemValueList,
-  completeInfoItemValueListWrapper,
 } from "./CompleteStep.css"
 
-interface Props {
-  data: CreateTeamPayload
-}
+export default function CompleteStep() {
+  const { user } = useAuthStore()
+  const { data } = useTeamByOwnerId(user?.id ?? "")
 
-export default function CompleteStep({ data }: Props) {
+  if (!data) {
+    return null
+  }
+
   return (
     <>
       <NavigationBar>
@@ -44,65 +44,33 @@ export default function CompleteStep({ data }: Props) {
 
           <div>
             <div className={completeEmblemWrapper}>
-              <img src={data.emblem} alt="팀 엠블럼" />
+              <img src={data.emblem_url} alt="팀 엠블럼" />
             </div>
             <ul className={completeInfoList}>
-              {Object.entries(data).map(([key, value]) => {
-                if (key === "emblem" || key === "teamIntro") {
-                  return null
-                }
-
-                if (key === "teamLeaderPhoneNumber") {
-                  return (
-                    <li className={completeInfoItem} key={key}>
-                      <span className={completeInfoItemLabel}>{FORM_FIELD_MAPPING[key]}</span>
-                      <div className={completeInfoItemValue}>{formatPhoneNumber(value)}</div>
-                    </li>
-                  )
-                }
-
-                if (key === "matchTime") {
-                  return (
-                    <li className={value.length === 0 ? completeInfoItem : completeInfoItemValueListWrapper} key={key}>
-                      <span className={completeInfoItemLabel}>{FORM_FIELD_MAPPING[key]}</span>
-                      {/* {value.length === 0 && <div className={completeInfoItemValue}>{value.join(", ")}</div>} */}
-
-                      <ul className={completeInfoItemValueList}>
-                        {value.map((item: (typeof MATCH_TIMES_OPTIONS)[number]) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </li>
-                  )
-                }
-
-                if (key === "teamActivityDays") {
-                  return (
-                    <li className={completeInfoItem} key={key}>
-                      <span className={completeInfoItemLabel}>{FORM_FIELD_MAPPING[key]}</span>
-                      <div className={completeInfoItemValue}>{value.join(", ")}</div>
-                    </li>
-                  )
-                }
-
-                if (key === "skillLevel") {
-                  return (
-                    <li className={completeInfoItem} key={key}>
-                      <span className={completeInfoItemLabel}>{FORM_FIELD_MAPPING[key]}</span>
-                      <div className={completeInfoItemValue}>
-                        <Badge>{value}</Badge>
-                      </div>
-                    </li>
-                  )
-                }
-
-                return (
-                  <li className={completeInfoItem} key={key}>
-                    <span className={completeInfoItemLabel}>{FORM_FIELD_MAPPING[key as FormFieldKey]}</span>
-                    <div className={completeInfoItemValue}>{value}</div>
-                  </li>
-                )
-              })}
+              <li className={completeInfoItem}>
+                <span className={completeInfoItemLabel}>팀명</span>
+                <div className={completeInfoItemValue}>{data.team_name}</div>
+              </li>
+              <li className={completeInfoItem}>
+                <span className={completeInfoItemLabel}>대표자</span>
+                <div className={completeInfoItemValue}>{data.team_leader_name}</div>
+              </li>
+              <li className={completeInfoItem}>
+                <span className={completeInfoItemLabel}>대표 연락처</span>
+                <div className={completeInfoItemValue}>{formatPhoneNumber(data.team_leader_phone)}</div>
+              </li>
+              <li className={completeInfoItem}>
+                <span className={completeInfoItemLabel}>주 활동 요일</span>
+                <div className={completeInfoItemValue}>{data.activity_days.join(", ")}</div>
+              </li>
+              <li className={completeInfoItem}>
+                <span className={completeInfoItemLabel}>평균 연령대</span>
+                <div className={completeInfoItemValue}>{data.average_age}</div>
+              </li>
+              <li className={completeInfoItem}>
+                <span className={completeInfoItemLabel}>초기 진단 실력</span>
+                <div className={completeInfoItemValue}>{data.team_level}</div>
+              </li>
             </ul>
           </div>
 

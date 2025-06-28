@@ -9,7 +9,6 @@ import type {
   teamIntroFormSchema,
   teamUploadEmblemFormSchema,
 } from "./schemas"
-import type { FORM_FIELD_MAPPING } from "../consts"
 
 // Form Constants
 export type Day = (typeof DAYS)[number]
@@ -19,10 +18,6 @@ export type MatchTimeOption = (typeof MATCH_TIMES_OPTIONS)[number]
 export type AverageAgeOption = (typeof AVERAGE_AGE_OPTIONS)[number]
 
 export type SkillLevelOption = (typeof TEAM_LEVEL_OPTIONS)[number]
-
-export type FormFieldKey = keyof typeof FORM_FIELD_MAPPING
-
-export type FormFieldLabel = (typeof FORM_FIELD_MAPPING)[FormFieldKey]
 
 // Form Schemas
 export type TeamBasicInfoContext = z.infer<typeof teamBasicInfoFormSchema>

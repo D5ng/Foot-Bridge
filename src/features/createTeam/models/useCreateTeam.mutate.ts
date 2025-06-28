@@ -9,8 +9,5 @@ export function useCreateTeam() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: teamKeys.all })
     },
-    onError: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.all })
-    },
   })
 }

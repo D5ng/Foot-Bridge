@@ -1,28 +1,53 @@
 import { createBrowserRouter, type RouteObject } from "react-router"
 import AuthProtectedRoute from "@/app/providers/AuthProtectedRoute"
+import CompleteStep from "@/features/createTeam/ui/form/CompleteStep/CompleteStep"
 import { MatchListPage, LoginPage, MyPage, CreateTeamPage, CreateMatchPage, MatchDetailPage } from "../pages"
 
 /** 인증이 필요한 라우트 */
 const protectedRoutes: RouteObject[] = [
   {
     path: "/my",
-    Component: MyPage,
+    Component: () => {
+      return (
+        <AuthProtectedRoute fallback={<div>Loading...</div>}>
+          <MyPage />
+        </AuthProtectedRoute>
+      )
+    },
   },
   {
     path: "/create-team",
-    Component: CreateTeamPage,
+    children: [
+      {
+        index: true,
+        Component: () => {
+          return (
+            <AuthProtectedRoute fallback={<div>Loading...</div>}>
+              <CreateTeamPage />
+            </AuthProtectedRoute>
+          )
+        },
+      },
+      {
+        path: "complete",
+        Component: () => {
+          return <CompleteStep />
+        },
+      },
+    ],
   },
   {
     path: "/create-match",
-    Component: CreateMatchPage,
-  },
-  {
-    path: "/match/:matchId",
-    Component: MatchDetailPage,
+    Component: () => {
+      return (
+        <AuthProtectedRoute fallback={<div>Loading...</div>}>
+          <CreateMatchPage />
+        </AuthProtectedRoute>
+      )
+    },
   },
 ]
 
-/** 인증이 필요하지 않은 라우트 */
 const publicRoutes: RouteObject[] = [
   {
     path: "/",
@@ -32,26 +57,13 @@ const publicRoutes: RouteObject[] = [
     path: "/login",
     Component: LoginPage,
   },
+  {
+    path: "/match/:matchId",
+    Component: () => {
+      return <MatchDetailPage />
+    },
+  },
 ]
 
-/** 인증이 필요한 라우트를 생성하는 함수 */
-const createProtectedRoute = (Component: RouteObject["Component"]) => {
-  if (!Component) {
-    return null
-  }
-
-  return () => (
-    <AuthProtectedRoute fallback={<div>Loading...</div>}>
-      <Component />
-    </AuthProtectedRoute>
-  )
-}
-
 /** 라우터 생성 */
-export const router = createBrowserRouter([
-  ...publicRoutes,
-  ...protectedRoutes.map(({ path, Component }) => ({
-    path,
-    Component: createProtectedRoute(Component),
-  })),
-])
+export const router = createBrowserRouter([...publicRoutes, ...protectedRoutes])

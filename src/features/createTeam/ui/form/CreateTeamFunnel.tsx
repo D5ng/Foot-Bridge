@@ -10,7 +10,6 @@ import {
   teamLevelStepSchema,
   teamIntroStepSchema,
   teamUploadEmblemStepSchema,
-  teamCompleteStepSchema,
 } from "../../models"
 import TeamBasicInfoStep from "./TeamBasicInfoStep/TeamBasicInfoStep"
 import TeamActivityDaysStep from "./TeamActivityDaysStep/TeamActivityDaysStep"
@@ -19,7 +18,6 @@ import TeamAverageAgeStep from "./TeamAverageAgeStep/TeamAverageAgeStep"
 import TeamLevelStep from "./TeamLevelStep/TeamLevelStep"
 import TeamIntroStep from "./TeamIntroStep/TeamIntroStep"
 import TeamUploadEmblemStep from "./TeamUploadEmblemStep/TeamUploadEmblemStep"
-import CompleteStep from "./CompleteStep/CompleteStep"
 import { transformCreateTeamToDto } from "../../lib"
 import { useCreateTeam } from "../../models/useCreateTeam.mutate"
 
@@ -38,7 +36,7 @@ export default function CreateTeamFunnel() {
       teamLevel: { parse: teamLevelStepSchema.parse },
       teamIntro: { parse: teamIntroStepSchema.parse },
       teamUploadEmblem: { parse: teamUploadEmblemStepSchema.parse },
-      complete: { parse: teamCompleteStepSchema.parse },
+      // complete: { parse: teamCompleteStepSchema.parse },
     },
     initial: {
       step: "teamBasicInfo",
@@ -121,15 +119,16 @@ export default function CreateTeamFunnel() {
           isPending={isPending}
           onNext={async (data) => {
             await handleCreateTeamSubmit({ ...context, ...data })
-            history.push("complete", { ...context, ...data })
+            // history.push("complete", { ...context, ...data })
+            navigate("/create-team/complete", { replace: true })
           }}
           onBack={() => history.push("teamIntro", () => ({ ...context }))}
           prevContext={context}
         />
       )}
-      complete={({ context }) => {
-        return <CompleteStep data={context} />
-      }}
+      // complete={({ context }) => {
+      //   return <CompleteStep data={context} />
+      // }}
     />
   )
 }
