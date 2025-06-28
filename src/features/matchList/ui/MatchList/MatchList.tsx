@@ -8,16 +8,7 @@ export default function MatchList() {
   const { data: matchList } = useFetchMatchList()
 
   if (matchList?.length === 0) {
-    return (
-      <div className={layout}>
-        <div className={emptyMatchListContainer}>
-          <h4 className={emptyMatchListText}>아직 등록된 매치가 없어요. 첫 경기를 등록해보세요!</h4>
-          <Button variant="primary" className={emptyMatchListButton} asChild>
-            <Link to="/create-match">매치 등록하기</Link>
-          </Button>
-        </div>
-      </div>
-    )
+    return <EmptyMatchList />
   }
 
   return (
@@ -30,5 +21,18 @@ export default function MatchList() {
         </li>
       ))}
     </ul>
+  )
+}
+
+function EmptyMatchList() {
+  return (
+    <div className={layout}>
+      <div className={emptyMatchListContainer}>
+        <h4 className={emptyMatchListText}>아직 등록된 매치가 없어요. 첫 경기를 등록해보세요!</h4>
+        <Button variant="primary" className={emptyMatchListButton} asChild>
+          <Link to="/create-match">매치 등록하기</Link>
+        </Button>
+      </div>
+    </div>
   )
 }
