@@ -12,8 +12,8 @@ import {
   matchItemTagItemImage,
 } from "./MatchListItem.css"
 
-export default function MatchListItem({ match_time, team_level, field_name, match_format, teams }: Match) {
-  const { team_name, emblem_url } = teams
+export default function MatchListItem({ match_time, field_name, match_format, teams }: Match) {
+  const { team_name, emblem_url, team_level } = teams
   return (
     <article className={mathItemlayout}>
       <div className={matchItemInfo}>
