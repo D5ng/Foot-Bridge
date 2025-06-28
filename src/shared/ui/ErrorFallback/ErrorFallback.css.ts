@@ -5,6 +5,7 @@ export const errorFallbackContainer = style({
   display: "flex",
   flexDirection: "column",
   gap: spacing[2.5],
+  textAlign: "center",
 })
 
 export const errorFallbackTitle = style({
@@ -19,4 +20,5 @@ export const errorFallbackChildrenContainer = style({
   display: "flex",
   flexDirection: "column",
   gap: spacing[2.5],
+  paddingTop: spacing[4],
 })
