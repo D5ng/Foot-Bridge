@@ -17,7 +17,7 @@ export const modalContent = style({
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "100%",
-  maxWidth: "300px",
+  maxWidth: "340px",
   backgroundColor: colorVars.neutral.light[50],
   borderRadius: spacing[4],
   padding: `${spacing[4]} ${spacing[5]}`,

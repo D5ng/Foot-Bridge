@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css"
-import { colorVars, spacing } from "@/shared/tokens"
+import { spacing } from "@/shared/tokens"
 
 export const teamExistsFallbackContainer = style({
   display: "flex",
@@ -15,7 +15,6 @@ export const teamExistsFallbackSection = style({
   textAlign: "center",
   padding: spacing[4],
   gap: spacing[2],
-  backgroundColor: colorVars.highlight[50],
   borderRadius: spacing[4],
 })
 
