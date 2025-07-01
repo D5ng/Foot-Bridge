@@ -85,7 +85,10 @@ function ModalClose({
 }
 
 function ModalOverlay() {
-  const { onOpenChange } = useModalContext()
+  const { isOpen, onOpenChange } = useModalContext()
+
+  if (!isOpen) return null
+
   const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === "Escape") {
       onOpenChange(false)
@@ -104,6 +107,10 @@ function ModalOverlay() {
 }
 
 function ModalContent({ children, className, ...restProps }: HTMLAttributes<HTMLDivElement>) {
+  const { isOpen } = useModalContext()
+
+  if (!isOpen) return null
+
   return (
     <div className={clsx(modalContent, className)} {...restProps}>
       {children}
