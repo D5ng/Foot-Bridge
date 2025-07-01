@@ -7,18 +7,18 @@ import {
   MatchDetailContainer,
 } from "@/features/matchDetail/ui"
 import { useMatchDetail } from "@/features/matchDetail/models"
-import { Button, NavigationBar, NavigationBarBackButton } from "@/shared/ui"
+import { NavigationBar, NavigationBarBackButton } from "@/shared/ui"
 
 import { MatchDetailCard, MatchDetailCardTitle } from "@/features/matchDetail/ui/Layout/MatchDetailCard"
-import { matchDetailButtonWrapper, navClassName } from "./MatchDetailPage.css"
+import MatchRoleActions from "@/features/matchDetail/ui/MatchRoleActions/MatchRoleActions"
+import { navClassName } from "./MatchDetailPage.css"
 
 export default function MatchDetailPage() {
-  const { matchId } = useParams()
+  const { matchId = "" } = useParams()
   const navigate = useNavigate()
+  const { data: matchData } = useMatchDetail(matchId)
 
-  const { data } = useMatchDetail(matchId || "")
-
-  if (!data) return null
+  if (!matchData) return null
 
   return (
     <>
@@ -29,34 +29,32 @@ export default function MatchDetailPage() {
         <MatchThumbnail />
         <MatchDetailContainer>
           <MatchFieldInfo
-            matchDate={data!.match_date}
-            fieldName={data!.field_name}
-            matchTime={data!.match_time}
-            matchFormat={data!.match_format}
+            matchDate={matchData!.match_date}
+            fieldName={matchData!.field_name}
+            matchTime={matchData!.match_time}
+            matchFormat={matchData!.match_format}
           />
 
           <MatchDetailCard>
             <MatchDetailCardTitle>팀 정보</MatchDetailCardTitle>
             <MatchTeamProfile
-              teamName={data!.teams.team_name}
-              averageAge={data!.teams.average_age}
-              teamLevel={data!.teams.team_level}
+              teamName={matchData!.teams.team_name}
+              averageAge={matchData!.teams.average_age}
+              teamLevel={matchData!.teams.team_level}
               teamManners="☺️ 좋아요"
             />
           </MatchDetailCard>
 
           <MatchDetailCard>
             <MatchDetailCardTitle>상세 내용</MatchDetailCardTitle>
-            <MatchDescription description={data.description} />
+            <MatchDescription description={matchData.description} />
           </MatchDetailCard>
 
           <MatchDetailCard>
             <MatchDetailCardTitle>리뷰</MatchDetailCardTitle>
           </MatchDetailCard>
 
-          <div className={matchDetailButtonWrapper}>
-            <Button>1:1 채팅하기</Button>
-          </div>
+          <MatchRoleActions matchData={matchData} matchId={matchId} />
         </MatchDetailContainer>
       </main>
     </>

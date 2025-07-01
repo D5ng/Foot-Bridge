@@ -1,5 +1,4 @@
 import { style } from "@vanilla-extract/css"
-import { spacing } from "@/shared/tokens"
 
 export const navClassName = style({
   position: "absolute",
@@ -8,8 +7,4 @@ export const navClassName = style({
   zIndex: 100,
   width: "100%",
   backgroundColor: "transparent",
-})
-
-export const matchDetailButtonWrapper = style({
-  paddingTop: spacing[12],
 })
