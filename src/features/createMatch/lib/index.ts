@@ -1,17 +1,13 @@
 import { parse, format } from "date-fns"
 import type { CreateMatchPayload } from "@/entities/match"
-import type { CreateTeamPayload } from "@/entities/team"
 
-export function transformCreateMatchToDto(
-  data: CreateMatchPayload & Pick<CreateTeamPayload, "teamLevel"> & { teamId: string }
-) {
+export function transformCreateMatchToDto(data: CreateMatchPayload & { teamId: string }) {
   return {
     match_date: data.matchDate,
     match_time: convertTimeTo24Hour(data.matchTime),
     field_name: data.fieldName,
     match_format: data.matchFormat,
     description: data.description,
-    team_level: data.teamLevel,
     team_id: data.teamId,
   }
 }

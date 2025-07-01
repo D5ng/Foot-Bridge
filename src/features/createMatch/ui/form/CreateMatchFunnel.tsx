@@ -40,7 +40,6 @@ export default function CreateMatchFunnel() {
       const matchData = transformCreateMatchToDto({
         ...data,
         teamId: teamData!.id,
-        teamLevel: teamData!.team_level,
       })
 
       const createMatchData = await mutateAsync(matchData)

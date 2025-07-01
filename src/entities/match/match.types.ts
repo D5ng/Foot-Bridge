@@ -7,6 +7,14 @@ export type Match = Database["public"]["Tables"]["matches"]["Row"] & {
   teams: Database["public"]["Tables"]["teams"]["Row"]
 }
 
+export type MatchDetail = Database["public"]["Tables"]["matches"]["Row"] & {
+  teams: Database["public"]["Tables"]["teams"]["Row"]
+} & {
+  match_requests: (Database["public"]["Tables"]["match_requests"]["Row"] & {
+    teams: Database["public"]["Tables"]["teams"]["Row"]
+  })[]
+}
+
 export type CreateMatchDto = Database["public"]["Tables"]["matches"]["Insert"]
 
 export type CreateMatchPayload = z.infer<typeof createMatchRequiredSchema>
