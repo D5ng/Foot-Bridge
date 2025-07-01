@@ -15,7 +15,7 @@ export type Database = {
           id: string
           match_id: string
           responded_at: string | null
-          status: string
+          status: Database["public"]["Enums"]["match_request_status_enum"]
           team_id: string
         }
         Insert: {
@@ -23,7 +23,7 @@ export type Database = {
           id?: string
           match_id: string
           responded_at?: string | null
-          status?: string
+          status?: Database["public"]["Enums"]["match_request_status_enum"]
           team_id: string
         }
         Update: {
@@ -31,7 +31,7 @@ export type Database = {
           id?: string
           match_id?: string
           responded_at?: string | null
-          status?: string
+          status?: Database["public"]["Enums"]["match_request_status_enum"]
           team_id?: string
         }
         Relationships: [
@@ -53,38 +53,89 @@ export type Database = {
       }
       matches: {
         Row: {
+          confirmed_team_id: string | null
           created_at: string
           description: string
           field_name: string
           id: string
           match_date: string
           match_format: string
+          match_status: Database["public"]["Enums"]["match_status_enum"]
           match_time: string
           team_id: string
+          updated_at: string | null
         }
         Insert: {
+          confirmed_team_id?: string | null
           created_at?: string
           description: string
           field_name: string
           id?: string
           match_date: string
           match_format: string
+          match_status?: Database["public"]["Enums"]["match_status_enum"]
           match_time: string
           team_id: string
+          updated_at?: string | null
         }
         Update: {
+          confirmed_team_id?: string | null
           created_at?: string
           description?: string
           field_name?: string
           id?: string
           match_date?: string
           match_format?: string
+          match_status?: Database["public"]["Enums"]["match_status_enum"]
           match_time?: string
           team_id?: string
+          updated_at?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "matches_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          created_at: string | null
+          id: string
+          match_id: string | null
+          message: string | null
+          status: Database["public"]["Enums"]["notification_status_enum"]
+          team_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          match_id?: string | null
+          message?: string | null
+          status?: Database["public"]["Enums"]["notification_status_enum"]
+          team_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          match_id?: string | null
+          message?: string | null
+          status?: Database["public"]["Enums"]["notification_status_enum"]
+          team_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_team_id_fkey"
             columns: ["team_id"]
             isOneToOne: false
             referencedRelation: "teams"
@@ -145,6 +196,9 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      match_request_status_enum: "pending" | "accepted" | "rejected"
+      match_status_enum: "pending" | "accepted" | "confirmed" | "cancelled"
+      notification_status_enum: "unread" | "read" | "archived"
       team_level: "비기너" | "아마추어" | "세미프로" | "프로"
     }
     CompositeTypes: {
@@ -261,6 +315,9 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      match_request_status_enum: ["pending", "accepted", "rejected"],
+      match_status_enum: ["pending", "accepted", "confirmed", "cancelled"],
+      notification_status_enum: ["unread", "read", "archived"],
       team_level: ["비기너", "아마추어", "세미프로", "프로"],
     },
   },

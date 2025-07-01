@@ -16,12 +16,13 @@ export default function Button<T extends HTMLButtonElement = HTMLButtonElement>(
   asChild,
   className,
   variant = "primary",
+  size = "medium",
   isLoading = false,
   ...restProps
 }: Props<T>) {
   const Element = asChild ? Slot : "button"
   return (
-    <Element className={clsx(button({ variant }), className)} {...restProps}>
+    <Element className={clsx(button({ variant, size }), className)} {...restProps}>
       <Slottable>{isLoading ? "Loading..." : children}</Slottable>
     </Element>
   )

@@ -15,6 +15,8 @@ export type MatchDetail = Database["public"]["Tables"]["matches"]["Row"] & {
   })[]
 }
 
+export type MatchStatus = Database["public"]["Enums"]["match_status_enum"]
+
 export type CreateMatchDto = Database["public"]["Tables"]["matches"]["Insert"]
 
 export type CreateMatchPayload = z.infer<typeof createMatchRequiredSchema>

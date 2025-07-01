@@ -1,7 +1,15 @@
 import { createBrowserRouter, type RouteObject } from "react-router"
 import AuthProtectedRoute from "@/app/providers/AuthProtectedRoute"
 import CompleteStep from "@/features/createTeam/ui/form/CompleteStep/CompleteStep"
-import { MatchListPage, LoginPage, MyPage, CreateTeamPage, CreateMatchPage, MatchDetailPage } from "../pages"
+import {
+  MatchListPage,
+  LoginPage,
+  MyPage,
+  CreateTeamPage,
+  CreateMatchPage,
+  MatchDetailPage,
+  MatchApplicantsPage,
+} from "../pages"
 
 /** 인증이 필요한 라우트 */
 const protectedRoutes: RouteObject[] = [
@@ -59,9 +67,22 @@ const publicRoutes: RouteObject[] = [
   },
   {
     path: "/match/:matchId",
-    Component: () => {
-      return <MatchDetailPage />
-    },
+    children: [
+      {
+        index: true,
+        Component: MatchDetailPage,
+      },
+      {
+        path: "request",
+        Component: () => {
+          return (
+            <AuthProtectedRoute fallback={<div>Loading...</div>}>
+              <MatchApplicantsPage />
+            </AuthProtectedRoute>
+          )
+        },
+      },
+    ],
   },
 ]
 

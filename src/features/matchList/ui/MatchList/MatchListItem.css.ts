@@ -1,12 +1,31 @@
 import { style } from "@vanilla-extract/css"
+import { recipe } from "@vanilla-extract/recipes"
 import { colorVars, spacing, typography } from "@/shared/tokens"
 
-export const mathItemlayout = style({
-  display: "flex",
-  alignItems: "center",
-  gap: spacing[2.5],
-  padding: spacing[4],
-  borderBottom: `1px solid ${colorVars.neutral.light[200]}`,
+export const matchItemlayout = recipe({
+  base: {
+    display: "flex",
+    alignItems: "center",
+    gap: spacing[2.5],
+    padding: spacing[4],
+    borderBottom: `1px solid ${colorVars.neutral.light[200]}`,
+  },
+  variants: {
+    status: {
+      pending: {
+        opacity: 1,
+      },
+      confirmed: {
+        opacity: 0.3,
+      },
+      cancelled: {
+        opacity: 0.3,
+      },
+    },
+  },
+  defaultVariants: {
+    status: "pending",
+  },
 })
 
 export const matchItemInfo = style({
@@ -59,4 +78,37 @@ export const matchItemRight = style({
 export const matchItemTagItemImage = style({
   width: "16px",
   height: "16px",
+})
+
+export const matchItemText = recipe({
+  variants: {
+    status: {
+      pending: {},
+      confirmed: { color: colorVars.neutral.dark[500], opacity: 0.5 },
+      cancelled: { color: colorVars.neutral.dark[500], opacity: 0.5 },
+    },
+  },
+  defaultVariants: { status: "pending" },
+})
+
+export const matchItemBadgeStyle = recipe({
+  variants: {
+    status: {
+      pending: {},
+      confirmed: { color: colorVars.neutral.dark[500] },
+      cancelled: { color: colorVars.neutral.dark[500] },
+    },
+  },
+  defaultVariants: { status: "pending" },
+})
+
+export const matchItemImageStyle = recipe({
+  variants: {
+    status: {
+      pending: {},
+      confirmed: { opacity: 0.5 },
+      cancelled: { opacity: 0.5 },
+    },
+  },
+  defaultVariants: { status: "pending" },
 })

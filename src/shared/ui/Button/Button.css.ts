@@ -1,5 +1,5 @@
 import { recipe } from "@vanilla-extract/recipes"
-import { colorVars, radius, typography } from "@/shared/tokens"
+import { colorVars, radius, spacing, typography } from "@/shared/tokens"
 
 export const button = recipe({
   base: {
@@ -60,8 +60,17 @@ export const button = recipe({
         },
       },
     },
+    size: {
+      small: {
+        height: spacing[10],
+      },
+      medium: {
+        height: spacing[12],
+      },
+    },
   },
   defaultVariants: {
     variant: "primary",
+    size: "medium",
   },
 })
