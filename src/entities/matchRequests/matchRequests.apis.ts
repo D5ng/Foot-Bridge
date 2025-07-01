@@ -58,7 +58,6 @@ export async function rejectMatchRequest(requestId: string) {
   }
 
   const matchId = data[0].match_id
-  const teamId = data[0].team_id
 
   const { error: matchError } = await supabaseClient
     .from("matches")
