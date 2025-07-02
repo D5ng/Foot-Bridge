@@ -1,11 +1,15 @@
+import { format, parse } from "date-fns"
 import { supabaseClient } from "@/shared/lib"
 import type { CreateMatchDto, Match, MatchDetail } from "./match.types"
 
-export async function fetchMatchList(): Promise<Match[] | null> {
+export async function getMatchList(selectedDate: string): Promise<Match[] | null> {
+  const formattedDate = format(parse(selectedDate.toString(), "dd", new Date()), "yyyy-MM-dd")
+
   return (
     await supabaseClient
       .from("matches")
       .select("*, teams(*), match_requests(*, teams(*))")
+      .eq("match_date", formattedDate)
       .order("match_time", { ascending: true })
   ).data
 }
