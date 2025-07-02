@@ -1,4 +1,6 @@
 import clsx from "clsx"
+import { format, parse } from "date-fns"
+import { useNavigate, useSearchParams } from "react-router"
 import { useCreateMatchFlow } from "@/features/matchList/models"
 import { Button } from "@/shared/ui"
 import { useToggle } from "@/shared/hooks"
@@ -10,12 +12,24 @@ interface Props {
 }
 
 export default function CreateMatchButton({ className }: Props) {
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { isOpen, open, setOpen } = useToggle()
   const { modalType, handleProtectedFlow } = useCreateMatchFlow()
 
   const handleModalClick = () => {
     open()
-    handleProtectedFlow()
+
+    if (modalType) {
+      handleProtectedFlow()
+      return
+    }
+
+    const initialDate = searchParams.get("day")
+      ? parse(searchParams.get("day")!, "dd", new Date())
+      : parse(format(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd", new Date())
+
+    navigate(`/create-match?day=${format(initialDate, "dd")}`)
   }
 
   return (
