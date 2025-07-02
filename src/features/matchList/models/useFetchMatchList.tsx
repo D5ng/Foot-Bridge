@@ -1,9 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { fetchMatchList, matchKeys } from "@/entities/match"
+import { getMatchList, matchKeys } from "@/entities/match"
 
-export function useFetchMatchList() {
+export function useFetchMatchList(selectedDate: string) {
   return useSuspenseQuery({
-    queryKey: matchKeys.list(),
-    queryFn: fetchMatchList,
+    queryKey: matchKeys.list(selectedDate),
+    queryFn: () => getMatchList(selectedDate),
   })
 }
