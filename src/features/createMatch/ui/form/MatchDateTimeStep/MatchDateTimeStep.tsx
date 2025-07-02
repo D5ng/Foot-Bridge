@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback } from "react"
-import { format } from "date-fns"
+import { format, parse } from "date-fns"
 import {
   Badge,
   Button,
@@ -46,16 +46,17 @@ export default function MatchDateTimeStep({ onNext, onBack }: Props) {
   } = useForm({
     resolver: zodResolver(matchDateFormSchema),
     mode: "onTouched",
+    defaultValues: {
+      matchDate: parse(format(new Date(), "yyyy-MM-dd"), "yyyy-MM-dd", new Date()),
+    },
   })
 
   const { matchTime: selectedMatchTime } = watch()
 
-  const handleSelectMatchDate = useCallback(
-    (date: Date) => {
-      setValue("matchDate", format(date, "yyyy-MM-dd"), { shouldValidate: true })
-    },
-    [setValue]
-  )
+  const handleSelectMatchDate = (date: Date) => {
+    const parseDate = parse(format(date, "yyyy-MM-dd"), "yyyy-MM-dd", new Date())
+    setValue("matchDate", parseDate, { shouldValidate: true })
+  }
 
   const handleSelectFieldName = useCallback(
     (fieldName: FieldNameOption) => {
