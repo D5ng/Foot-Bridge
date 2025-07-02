@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react"
 import { format, parse } from "date-fns"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { clsx } from "clsx"
+import { useMemo } from "react"
+import { useSearchParams } from "react-router"
+import { useControllableState } from "@/shared/hooks"
 import { getRemainingDaysOfMonth } from "../utils"
 import DayCell from "../DayCell/DayCell"
 
@@ -9,24 +11,31 @@ import { swiperContainer, dayCellSlide, swiperWrapper } from "./MonthlyCalender.
 
 interface Props {
   swiperContainerClassName?: string
+  defaultValue?: Date
   onValueChange?: (date: Date) => void
 }
 
-export default function MonthlyCalendar({ swiperContainerClassName, onValueChange }: Props) {
-  const today = new Date()
-  const [selectedDate, setSelectedDate] = useState<string>(format(today, "yyyy-MM-dd"))
+export default function MonthlyCalendar({ swiperContainerClassName, onValueChange, defaultValue }: Props) {
+  const [searchParams] = useSearchParams()
+
+  const today = useMemo(() => new Date(), [])
   const remainingDays = getRemainingDaysOfMonth(today)
 
-  const handleSelectedDate = (date: Date) => {
-    setSelectedDate(format(date, "yyyy-MM-dd"))
-    onValueChange?.(date)
-  }
+  const initialDate = searchParams.get("day")
+    ? parse(searchParams.get("day")!, "dd", new Date())
+    : parse(format(today, "yyyy-MM-dd"), "yyyy-MM-dd", new Date())
 
-  useEffect(() => {
-    if (onValueChange) {
-      onValueChange(parse(selectedDate, "yyyy-MM-dd", new Date()))
-    }
-  }, [selectedDate, onValueChange])
+  const [selectedDate, setSelectedDate] = useControllableState({
+    prop: defaultValue,
+    defaultProp: defaultValue ?? initialDate,
+    onChange: onValueChange,
+  })
+
+  console.log(searchParams.get("day"))
+
+  const handleSelectedDate = (date: Date) => {
+    setSelectedDate(parse(format(date, "yyyy-MM-dd"), "yyyy-MM-dd", new Date()))
+  }
 
   return (
     <Swiper

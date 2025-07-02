@@ -4,7 +4,7 @@ import { FOOTBALL_FIELD_NAMES, MATCH_FORMAT_OPTIONS, MATCH_TIME_OPTIONS } from "
 /** Base Schema */
 export const createMatchBaseSchema = z
   .object({
-    matchDate: z.string().min(1, "날짜를 선택해주세요."),
+    matchDate: z.date(),
     matchTime: z.enum(MATCH_TIME_OPTIONS),
     fieldName: z.enum(FOOTBALL_FIELD_NAMES),
     matchFormat: z.enum(MATCH_FORMAT_OPTIONS),

@@ -4,8 +4,12 @@ import MatchListItem from "./MatchListItem"
 import { useFetchMatchList } from "../../models"
 import CreateMatchButton from "../CreateMatchButton/CreateMatchButton"
 
-export default function MatchList() {
-  const { data: matchList } = useFetchMatchList()
+interface Props {
+  selectedDay: string
+}
+
+export default function MatchList({ selectedDay }: Props) {
+  const { data: matchList } = useFetchMatchList(selectedDay)
 
   if (matchList?.length === 0) {
     return <EmptyMatchList />

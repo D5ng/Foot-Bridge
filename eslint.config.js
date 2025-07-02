@@ -32,15 +32,14 @@ export default tseslint.config(
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "no-console": "warn",
       "no-debugger": "warn",
-      "no-unused-vars": "warn",
       "import/order": ["warn", { groups: ["builtin", "external", "internal"] }],
       "import/no-unresolved": "error",
       "import/no-extraneous-dependencies": "error",
       "unused-imports/no-unused-imports": "warn",
-      "unused-imports/no-unused-vars": ["warn", { vars: "all", varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
+      "unused-imports/no-unused-vars": ["error", { vars: "all", varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
-        "warn",
+        "error",
         {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
