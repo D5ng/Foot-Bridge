@@ -3,7 +3,7 @@ import type { CreateMatchPayload } from "@/entities/match"
 
 export function transformCreateMatchToDto(data: CreateMatchPayload & { teamId: string }) {
   return {
-    match_date: data.matchDate,
+    match_date: format(data.matchDate, "yyyy-MM-dd"),
     match_time: convertTimeTo24Hour(data.matchTime),
     field_name: data.fieldName,
     match_format: data.matchFormat,
